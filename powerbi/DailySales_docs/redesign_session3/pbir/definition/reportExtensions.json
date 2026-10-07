@@ -1,0 +1,294 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/reportExtension/1.0.0/schema.json",
+  "name": "extension",
+  "entities": [
+    {
+      "name": "revenue_orders_tbl",
+      "measures": [
+        {
+          "name": "Average Order Value",
+          "dataType": "Double",
+          "expression": "DIVIDE ( [Paid Revenue (Products)], [Paid Orders (Products)] )",
+          "displayFolder": "Headline",
+          "description": "Paid revenue excl. VAT ÷ paid orders (paid date).",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "Paid Revenue PP",
+          "dataType": "Double",
+          "expression": "VAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nVAR _days = INT ( _last - _first ) + 1\nRETURN\n    CALCULATE (\n        [Paid Revenue (Products)],\n        REMOVEFILTERS ( 'Calendar' ),\n        FILTER (\n            ALL ( 'Calendar'[Date (format)] ),\n            'Calendar'[Date (format)] >= _first - _days\n                && 'Calendar'[Date (format)] <= _first - 1\n        )\n    )",
+          "displayFolder": "Time",
+          "description": "Paid revenue for the prior period of equal length immediately before the selected dates.",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "Paid Orders PP",
+          "dataType": "Double",
+          "expression": "VAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nVAR _days = INT ( _last - _first ) + 1\nRETURN\n    CALCULATE (\n        [Paid Orders (Products)],\n        REMOVEFILTERS ( 'Calendar' ),\n        FILTER (\n            ALL ( 'Calendar'[Date (format)] ),\n            'Calendar'[Date (format)] >= _first - _days\n                && 'Calendar'[Date (format)] <= _first - 1\n        )\n    )",
+          "displayFolder": "Time",
+          "description": "Paid orders, prior period of equal length.",
+          "formatString": "0"
+        },
+        {
+          "name": "Average Order Value PP",
+          "dataType": "Double",
+          "expression": "DIVIDE ( [Paid Revenue PP], [Paid Orders PP] )",
+          "displayFolder": "Time",
+          "description": "AOV for the prior period of equal length.",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "Paid Revenue Δ%",
+          "dataType": "Double",
+          "expression": "VAR _p = [Paid Revenue PP] RETURN IF ( NOT ISBLANK ( _p ), DIVIDE ( [Paid Revenue (Products)] - _p, _p ) )",
+          "displayFolder": "Time",
+          "description": "Change in paid revenue vs the prior period of equal length.",
+          "formatString": "0.0%;-0.0%;0.0%"
+        },
+        {
+          "name": "Paid Revenue LY",
+          "dataType": "Double",
+          "expression": "VAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nVAR _days = INT ( _last - _first ) + 1\nRETURN\n    CALCULATE (\n        [Paid Revenue (Products)],\n        REMOVEFILTERS ( 'Calendar' ),\n        FILTER (\n            ALL ( 'Calendar'[Date (format)] ),\n            'Calendar'[Date (format)] >= EDATE ( _first, -12 )\n                && 'Calendar'[Date (format)] <= EDATE ( _last, -12 )\n        )\n    )",
+          "displayFolder": "Time",
+          "description": "Paid revenue for the same dates one year earlier. Blank before Jul 2026 (orders data starts Jul 2025).",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "KPI Revenue Δ",
+          "dataType": "Text",
+          "expression": "VAR _c = [Paid Revenue (Products)]\nVAR _p = [Paid Revenue PP]\nVAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nVAR _days = INT ( _last - _first ) + 1\nRETURN\n    IF (\n        ISBLANK ( _p ) || _p = 0,\n        \"No prior-period data\",\n        VAR _d = DIVIDE ( _c - _p, _p )\n        RETURN IF ( _d >= 0, \"▲ \", \"▼ \" ) & FORMAT ( ABS ( _d ), \"0.0%\" ) & \" vs prior \" & _days & \" days\"\n    )",
+          "displayFolder": "KPI text",
+          "description": "Card caption."
+        },
+        {
+          "name": "KPI Orders Δ",
+          "dataType": "Text",
+          "expression": "VAR _c = [Paid Orders (Products)]\nVAR _p = [Paid Orders PP]\nVAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nVAR _days = INT ( _last - _first ) + 1\nRETURN\n    IF (\n        ISBLANK ( _p ) || _p = 0,\n        \"No prior-period data\",\n        VAR _d = DIVIDE ( _c - _p, _p )\n        RETURN IF ( _d >= 0, \"▲ \", \"▼ \" ) & FORMAT ( ABS ( _d ), \"0.0%\" ) & \" vs prior \" & _days & \" days\"\n    )",
+          "displayFolder": "KPI text",
+          "description": "Card caption."
+        },
+        {
+          "name": "KPI AOV Δ",
+          "dataType": "Text",
+          "expression": "VAR _c = [Average Order Value]\nVAR _p = [Average Order Value PP]\nVAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nVAR _days = INT ( _last - _first ) + 1\nRETURN\n    IF (\n        ISBLANK ( _p ) || _p = 0,\n        \"No prior-period data\",\n        VAR _d = DIVIDE ( _c - _p, _p )\n        RETURN IF ( _d >= 0, \"▲ \", \"▼ \" ) & FORMAT ( ABS ( _d ), \"0.0%\" ) & \" vs prior \" & _days & \" days\"\n    )",
+          "displayFolder": "KPI text",
+          "description": "Card caption."
+        },
+        {
+          "name": "KPI Revenue Δ Colour",
+          "dataType": "Text",
+          "expression": "VAR _c = [Paid Revenue (Products)]\nVAR _p = [Paid Revenue PP]\nRETURN IF ( ISBLANK ( _p ) || _c >= _p, \"#00845F\", \"#E5484D\" )",
+          "displayFolder": "KPI text",
+          "description": "Green up / red down."
+        },
+        {
+          "name": "KPI Orders Δ Colour",
+          "dataType": "Text",
+          "expression": "VAR _c = [Paid Orders (Products)]\nVAR _p = [Paid Orders PP]\nRETURN IF ( ISBLANK ( _p ) || _c >= _p, \"#00845F\", \"#E5484D\" )",
+          "displayFolder": "KPI text",
+          "description": "Green up / red down."
+        },
+        {
+          "name": "KPI AOV Δ Colour",
+          "dataType": "Text",
+          "expression": "VAR _c = [Average Order Value]\nVAR _p = [Average Order Value PP]\nRETURN IF ( ISBLANK ( _p ) || _c >= _p, \"#00845F\", \"#E5484D\" )",
+          "displayFolder": "KPI text",
+          "description": "Green up / red down."
+        },
+        {
+          "name": "New Customer Revenue",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Paid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[type_of_customer] = \"New Customer\" ) )",
+          "displayFolder": "Customers",
+          "description": "Paid revenue from clients who signed up on the order day.",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "New Customer Share",
+          "dataType": "Double",
+          "expression": "DIVIDE ( [New Customer Revenue], [Paid Revenue (Products)] )",
+          "displayFolder": "Customers",
+          "description": "Share of paid revenue from new customers (Excel: New Revenue %).",
+          "formatString": "0.0%;-0.0%;0.0%"
+        },
+        {
+          "name": "New Customer Share PP",
+          "dataType": "Double",
+          "expression": "VAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nVAR _days = INT ( _last - _first ) + 1\nRETURN\n    CALCULATE (\n        DIVIDE ( [New Customer Revenue], [Paid Revenue (Products)] ),\n        REMOVEFILTERS ( 'Calendar' ),\n        FILTER (\n            ALL ( 'Calendar'[Date (format)] ),\n            'Calendar'[Date (format)] >= _first - _days\n                && 'Calendar'[Date (format)] <= _first - 1\n        )\n    )",
+          "displayFolder": "Customers",
+          "description": "New-customer share, prior period of equal length.",
+          "formatString": "0.0%;-0.0%;0.0%"
+        },
+        {
+          "name": "KPI New Share Δ",
+          "dataType": "Text",
+          "expression": "VAR _c = [New Customer Share]\nVAR _p = [New Customer Share PP]\nVAR _d = ( _c - _p ) * 100\nVAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nVAR _days = INT ( _last - _first ) + 1\nRETURN\n    IF (\n        ISBLANK ( _p ) || ISBLANK ( _c ),\n        \"No prior-period data\",\n        IF ( _d >= 0, \"▲ \", \"▼ \" ) & FORMAT ( ABS ( _d ), \"0.0\" ) & \" pts vs prior \" & _days & \" days\"\n    )",
+          "displayFolder": "KPI text",
+          "description": "Card caption."
+        },
+        {
+          "name": "KPI New Share Δ Colour",
+          "dataType": "Text",
+          "expression": "VAR _c = [New Customer Share]\nVAR _p = [New Customer Share PP]\nRETURN IF ( ISBLANK ( _p ) || _c >= _p, \"#00845F\", \"#E5484D\" )",
+          "displayFolder": "KPI text",
+          "description": "Green up / red down."
+        },
+        {
+          "name": "Open Unpaid Revenue",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Unpaid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Status_Filter] IN { \"Unpaid\", \"Payment Pending\", \"Collections\", \"Draft\" } ) )",
+          "displayFolder": "Collections",
+          "description": "Invoice value excl. VAT still collectable (Unpaid, Payment Pending, Collections, Draft), by order date. Filters Status_Filter because the base measure overrides invoice_status.",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "Open Unpaid Orders",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Unpaid Orders (Products)], KEEPFILTERS ( revenue_orders_tbl[Status_Filter] IN { \"Unpaid\", \"Payment Pending\", \"Collections\", \"Draft\" } ) )",
+          "displayFolder": "Collections",
+          "description": "Orders whose invoice is still collectable.",
+          "formatString": "0"
+        },
+        {
+          "name": "Cancelled Revenue",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Unpaid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Status_Filter] = \"Cancelled\" ) )",
+          "displayFolder": "Collections",
+          "description": "Invoice value excl. VAT on cancelled invoices (lost), by order date.",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "Cancelled Orders",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Unpaid Orders (Products)], KEEPFILTERS ( revenue_orders_tbl[Status_Filter] = \"Cancelled\" ) )",
+          "displayFolder": "Collections",
+          "description": "Orders whose invoice was cancelled.",
+          "formatString": "0"
+        },
+        {
+          "name": "KPI Unpaid Caption",
+          "dataType": "Text",
+          "expression": "VAR _n = [Open Unpaid Orders] RETURN IF ( ISBLANK ( _n ), \"No open invoices\", FORMAT ( _n, \"#,0\" ) & \" orders awaiting payment\" )",
+          "displayFolder": "KPI text",
+          "description": "Card caption."
+        },
+        {
+          "name": "KPI Cancelled Caption",
+          "dataType": "Text",
+          "expression": "VAR _n = [Cancelled Orders] RETURN IF ( ISBLANK ( _n ), \"No cancelled invoices\", FORMAT ( _n, \"#,0\" ) & \" orders cancelled\" )",
+          "displayFolder": "KPI text",
+          "description": "Card caption."
+        },
+        {
+          "name": "Invoiced Value",
+          "dataType": "Double",
+          "expression": "[RO Invoice Total]",
+          "displayFolder": "Collections",
+          "description": "All invoices excl. VAT, each once, by order date (Excel: 'Power BI new revenue').",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "Paid Share of Invoiced",
+          "dataType": "Double",
+          "expression": "DIVIDE ( CALCULATE ( [RO Invoice Total], revenue_orders_tbl[invoice_status] = \"Paid\" ), [RO Invoice Total] )",
+          "displayFolder": "Collections",
+          "description": "Share of invoiced value (orders placed in the period) that is paid. Excel: Paid tracker '% Paid'.",
+          "formatString": "0.0%;-0.0%;0.0%"
+        },
+        {
+          "name": "App Sales Revenue",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Paid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Sales Channel] = \"App\" ) )",
+          "displayFolder": "Channels",
+          "description": "Paid revenue from app sales (signup_agent = App Sale).",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "App Sales Share",
+          "dataType": "Double",
+          "expression": "DIVIDE ( [App Sales Revenue], [Paid Revenue (Products)] )",
+          "displayFolder": "Channels",
+          "description": "Share of paid revenue from app sales.",
+          "formatString": "0.0%;-0.0%;0.0%"
+        },
+        {
+          "name": "Local Domain Revenue",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Paid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Sub Category] = \"Domains\" ), KEEPFILTERS ( revenue_orders_tbl[Domain Region] = \"Local\" ) )",
+          "displayFolder": "Domains",
+          "description": "Paid domain-registration revenue for local TLDs (.co.za, .africa …).",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "International Domain Revenue",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Paid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Sub Category] = \"Domains\" ), KEEPFILTERS ( revenue_orders_tbl[Domain Region] = \"International\" ) )",
+          "displayFolder": "Domains",
+          "description": "Paid domain-registration revenue for international TLDs.",
+          "formatString": "\"R\"\\ #,0;\"R\"\\ -#,0;\"R\"\\ #,0"
+        },
+        {
+          "name": "Domains Added",
+          "dataType": "Double",
+          "expression": "VAR _dates = VALUES ( 'Calendar'[Date (format)] )\nRETURN\n    CALCULATE (\n        DISTINCTCOUNT ( revenue_orders_tbl[service_id] ),\n        revenue_orders_tbl[invoice_status] = \"Paid\",\n        KEEPFILTERS ( revenue_orders_tbl[Sub Category] = \"Domains\" ),\n        REMOVEFILTERS ( 'Calendar' ),\n        TREATAS ( _dates, revenue_orders_tbl[Revenue Date] )\n    )",
+          "displayFolder": "Domains",
+          "description": "Domain registrations/transfers on paid orders, by paid date.",
+          "formatString": "#,0"
+        },
+        {
+          "name": "Local Domains Added",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Domains Added], KEEPFILTERS ( revenue_orders_tbl[Domain Region] = \"Local\" ) )",
+          "displayFolder": "Domains",
+          "description": "Excel: No. of Local Domains Added (paid orders only).",
+          "formatString": "#,0"
+        },
+        {
+          "name": "International Domains Added",
+          "dataType": "Double",
+          "expression": "CALCULATE ( [Domains Added], KEEPFILTERS ( revenue_orders_tbl[Domain Region] = \"International\" ) )",
+          "displayFolder": "Domains",
+          "description": "Excel: No. of Int. Domains Added (paid orders only).",
+          "formatString": "#,0"
+        },
+        {
+          "name": "Services Sold",
+          "dataType": "Double",
+          "expression": "VAR _dates = VALUES ( 'Calendar'[Date (format)] )\nRETURN\n    CALCULATE (\n        DISTINCTCOUNT ( revenue_orders_tbl[service_id] ),\n        revenue_orders_tbl[invoice_status] = \"Paid\",\n        REMOVEFILTERS ( 'Calendar' ),\n        TREATAS ( _dates, revenue_orders_tbl[Revenue Date] )\n    )",
+          "displayFolder": "Products",
+          "description": "Services/domains on paid orders, by paid date. Split by service_status to see how many are still active.",
+          "formatString": "#,0"
+        },
+        {
+          "name": "Revenue % of Total",
+          "dataType": "Double",
+          "expression": "DIVIDE (\n    [Paid Revenue (Products)],\n    CALCULATE (\n        [Paid Revenue (Products)],\n        ALLSELECTED ( revenue_orders_tbl[Category], revenue_orders_tbl[Sub Category], revenue_orders_tbl[Product Name] )\n    )\n)",
+          "displayFolder": "Products",
+          "description": "Share of the selected total, for the product matrix.",
+          "formatString": "0.0%;-0.0%;0.0%"
+        },
+        {
+          "name": "Period Label",
+          "dataType": "Text",
+          "expression": "VAR _first = MIN ( 'Calendar'[Date (format)] )\nVAR _last = MAX ( 'Calendar'[Date (format)] )\nRETURN FORMAT ( _first, \"d mmm yyyy\" ) & \" – \" & FORMAT ( _last, \"d mmm yyyy\" )",
+          "displayFolder": "Labels",
+          "description": "Selected period."
+        },
+        {
+          "name": "Data As Of",
+          "dataType": "Text",
+          "expression": "VAR _d = CALCULATE ( MAX ( orders_invoices_tbl[order_date] ), REMOVEFILTERS () )\nRETURN \"Data to \" & FORMAT ( _d, \"d mmm yyyy\" ) & \" · excl. VAT · revenue on paid date\"",
+          "displayFolder": "Labels",
+          "description": "Latest order date in the model."
+        },
+        {
+          "name": "Overview Insight",
+          "dataType": "Text",
+          "expression": "VAR _rev = [Paid Revenue (Products)]\nVAR _ord = [Paid Orders (Products)]\nVAR _d = [Paid Revenue Δ%]\nVAR _top =\n    TOPN ( 1, ADDCOLUMNS ( VALUES ( revenue_orders_tbl[Category] ), \"@r\", [Paid Revenue (Products)] ), [@r], DESC )\nVAR _topName = MAXX ( _top, revenue_orders_tbl[Category] )\nVAR _topShare = DIVIDE ( MAXX ( _top, [@r] ), _rev )\nVAR _new = [New Customer Share]\nRETURN\n    IF (\n        ISBLANK ( _rev ),\n        \"No paid sales in the selected period.\",\n        \"Paid revenue R \" & FORMAT ( _rev, \"#,0\" ) & \" from \" & FORMAT ( _ord, \"#,0\" ) & \" orders\"\n            & IF ( ISBLANK ( _d ), \"\", \" (\" & IF ( _d >= 0, \"▲ \", \"▼ \" ) & FORMAT ( ABS ( _d ), \"0.0%\" ) & \" vs prior period)\" )\n            & \". \" & _topName & \" brought \" & FORMAT ( _topShare, \"0%\" ) & \" of it; new customers \"\n            & FORMAT ( _new, \"0%\" ) & \"; app sales \" & FORMAT ( [App Sales Share], \"0%\" ) & \".\"\n    )",
+          "displayFolder": "Labels",
+          "description": "One-sentence summary for the Overview page."
+        }
+      ]
+    }
+  ]
+}
