@@ -1,0 +1,149 @@
+product_type,service_group,service_type,Category,Product Name,New Category
+Company Registration,Company Registration,Company Registration,Company Registration,Company Registration,Business Services
+Infrastructure Hosting,Dedicated IP Addresses,Dedicated IP Address,Dedicated IP,Dedicated IP Address,Dedicated Servers
+Infrastructure Hosting,Dedicated Servers,Enterprise Server,Dedicated Server,Dedicated Server – Enterprise Server,Dedicated Servers
+Infrastructure Hosting,Dedicated Servers,Enterprise Server+,Dedicated Server,Dedicated Server – Enterprise Server+,Dedicated Servers
+Infrastructure Hosting,Dedicated Servers,Managed,Dedicated Server,Dedicated Server – Managed,Dedicated Servers
+Infrastructure Hosting,Dedicated Servers,Managed+,Dedicated Server,Dedicated Server – Managed+,Dedicated Servers
+Infrastructure Hosting,Dedicated Servers,Server,Dedicated Server,Dedicated Server – Server,Dedicated Servers
+Infrastructure Hosting,Dedicated Servers,Server+,Dedicated Server,Dedicated Server – Server+,Dedicated Servers
+Domain,Domains,africa,Domain – Africa & City,.africa Domain,Domains
+Domain,Domains,ai,Domain – Country Code,.ai Domain,Domains
+Domain,Domains,au,Domain – Country Code,.au Domain,Domains
+Domain,Domains,biz,Domain – Generic,.biz Domain,Domains
+Domain,Domains,capetown,Domain – Africa & City,.capetown Domain,Domains
+Domain,Domains,ch,Domain – Country Code,.ch Domain,Domains
+Domain,Domains,club,Domain – New gTLD,.club Domain,Domains
+Domain,Domains,co,Domain – Country Code,.co Domain,Domains
+Domain,Domains,co.com,Domain – New gTLD,.co.com Domain,Domains
+Domain,Domains,co.uk,Domain – Country Code,.co.uk Domain,Domains
+Domain,Domains,co.za,Domain – .ZA,.co.za Domain,Domains
+Domain,Domains,coach,Domain – New gTLD,.coach Domain,Domains
+Domain,Domains,com,Domain – Generic,.com Domain,Domains
+Domain,Domains,de,Domain – Country Code,.de Domain,Domains
+Domain,Domains,dev,Domain – New gTLD,.dev Domain,Domains
+Domain,Domains,diamonds,Domain – New gTLD,.diamonds Domain,Domains
+Domain,Domains,directory,Domain – New gTLD,.directory Domain,Domains
+Domain,Domains,durban,Domain – Africa & City,.durban Domain,Domains
+Domain,Domains,es,Domain – Country Code,.es Domain,Domains
+Domain,Domains,estate,Domain – New gTLD,.estate Domain,Domains
+Domain,Domains,eu,Domain – Country Code,.eu Domain,Domains
+Domain,Domains,expert,Domain – New gTLD,.expert Domain,Domains
+Domain,Domains,global,Domain – New gTLD,.global Domain,Domains
+Domain,Domains,guru,Domain – New gTLD,.guru Domain,Domains
+Domain,Domains,ie,Domain – Country Code,.ie Domain,Domains
+Domain,Domains,info,Domain – Generic,.info Domain,Domains
+Domain,Domains,io,Domain – Country Code,.io Domain,Domains
+Domain,Domains,joburg,Domain – Africa & City,.joburg Domain,Domains
+Domain,Domains,life,Domain – New gTLD,.life Domain,Domains
+Domain,Domains,live,Domain – New gTLD,.live Domain,Domains
+Domain,Domains,ltd,Domain – New gTLD,.ltd Domain,Domains
+Domain,Domains,me,Domain – Country Code,.me Domain,Domains
+Domain,Domains,mobi,Domain – New gTLD,.mobi Domain,Domains
+Domain,Domains,net,Domain – Generic,.net Domain,Domains
+Domain,Domains,net.za,Domain – .ZA,.net.za Domain,Domains
+Domain,Domains,nl,Domain – Country Code,.nl Domain,Domains
+Domain,Domains,online,Domain – New gTLD,.online Domain,Domains
+Domain,Domains,org,Domain – Generic,.org Domain,Domains
+Domain,Domains,org.za,Domain – .ZA,.org.za Domain,Domains
+Domain,Domains,photography,Domain – New gTLD,.photography Domain,Domains
+Domain,Domains,shop,Domain – New gTLD,.shop Domain,Domains
+Domain,Domains,site,Domain – New gTLD,.site Domain,Domains
+Domain,Domains,solutions,Domain – New gTLD,.solutions Domain,Domains
+Domain,Domains,space,Domain – New gTLD,.space Domain,Domains
+Domain,Domains,store,Domain – New gTLD,.store Domain,Domains
+Domain,Domains,systems,Domain – New gTLD,.systems Domain,Domains
+Domain,Domains,tech,Domain – New gTLD,.tech Domain,Domains
+Domain,Domains,travel,Domain – New gTLD,.travel Domain,Domains
+Domain,Domains,tv,Domain – Country Code,.tv Domain,Domains
+Domain,Domains,uk,Domain – Country Code,.uk Domain,Domains
+Domain,Domains,us,Domain – Country Code,.us Domain,Domains
+Domain,Domains,ventures,Domain – New gTLD,.ventures Domain,Domains
+Domain,Domains,vip,Domain – New gTLD,.vip Domain,Domains
+Domain,Domains,web.za,Domain – .ZA,.web.za Domain,Domains
+Domain,Domains,work,Domain – New gTLD,.work Domain,Domains
+Domain,Domains,xyz,Domain – New gTLD,.xyz Domain,Domains
+Web Services,Other,Domain Essentials - CP (Including ID Privacy),Domain Add-ons,Domain Essentials - CP (Including ID Privacy),Domain Add-ons
+Web Services,Other,Domain Essentials (Including ID Privacy),Domain Add-ons,Domain Essentials (Including ID Privacy),Domain Add-ons
+Application Hosting,Web Hosting,Domain Parking,Domain Parking,Domain Parking,Domain Parking
+Application Hosting,Web Hosting,Domain Parking (WSP),Domain Parking,Domain Parking (WSP),Domain Parking
+Application Hosting,Web Hosting,Domain Parking: Website Builder,Domain Parking,Domain Parking – Website Builder,Domain Parking
+Application Hosting,Web Hosting,Linux Hosting: Domain Parking,Domain Parking,Linux Hosting – Domain Parking,Domain Parking
+Application Hosting,Web Hosting,Parked - Email DNS Only,Domain Parking,Parked - Email DNS Only,Domain Parking
+Application Hosting,Web Hosting,Plesk Parked: DNS Only,Domain Parking,Plesk Parked – DNS Only,Domain Parking
+Application Hosting,Web Hosting,Plesk Parked: Small,Domain Parking,Plesk Parked – Small,Domain Parking
+Application Hosting,Business Email,Business-in-a-box - Email Lite,Business Email,Business-in-a-box - Email Lite,Email
+Application Hosting,Business Email,Email Basic,Business Email,Business Email – Basic,Email
+Application Hosting,Business Email,Email Pro,Business Email,Business Email – Pro,Email
+Application Hosting,Reseller Hosting,Reseller (cPanel): Large,Reseller Hosting,Reseller (cPanel) – Large,Reseller Hosting
+Application Hosting,Reseller Hosting,Reseller (cPanel): Medium,Reseller Hosting,Reseller (cPanel) – Medium,Reseller Hosting
+Application Hosting,Reseller Hosting,Reseller (cPanel): Small,Reseller Hosting,Reseller (cPanel) – Small,Reseller Hosting
+Application Hosting,Reseller Hosting,Reseller (Linux Plesk): Large,Reseller Hosting,Reseller (Linux Plesk) – Large,Reseller Hosting
+Application Hosting,Reseller Hosting,Reseller (Linux Plesk): Medium,Reseller Hosting,Reseller (Linux Plesk) – Medium,Reseller Hosting
+Application Hosting,Reseller Hosting,Reseller (Linux Plesk): Small,Reseller Hosting,Reseller (Linux Plesk) – Small,Reseller Hosting
+Application Hosting,Reseller Hosting,Reseller (Windows Plesk): Medium,Reseller Hosting,Reseller (Windows Plesk) – Medium,Reseller Hosting
+Application Hosting,Reseller Hosting,Reseller (Windows Plesk): Small,Reseller Hosting,Reseller (Windows Plesk) – Small,Reseller Hosting
+Application Hosting,Reseller Hosting,Reseller (Windows Plesk): X Large,Reseller Hosting,Reseller (Windows Plesk) – X Large,Reseller Hosting
+Infrastructure Hosting,1-grid Server Backup,1-grid Server Backup,Server Backup,1-grid Server Backup,Security & Backup
+Web Services,Other,cWatch - Pro,Website Security,cWatch – Pro,Security & Backup
+Web Services,SSL Certificates,Positive SSL Certificate (DV),SSL Certificate,Positive SSL Certificate (DV),Security & Backup
+Web Services,SSL Certificates,Positive SSL Extended Validation Certificate (EV),SSL Certificate,Positive SSL Extended Validation Certificate (EV),Security & Backup
+Web Services,SSL Certificates,Positive SSL Multi-Domain Certificate,SSL Certificate,Positive SSL Multi-Domain Certificate,Security & Backup
+Web Services,SSL Certificates,Positive SSL Wildcard Certificate (DV),SSL Certificate,Positive SSL Wildcard Certificate (DV),Security & Backup
+Web Services,SSL Certificates,Thawte SSL123 Certificates,SSL Certificate,Thawte SSL123 Certificates,Security & Backup
+Web Services,SSL Certificates,Thawte SSLWebserver EV,SSL Certificate,Thawte SSLWebserver EV,Security & Backup
+Web Services,SSL Certificates,Thawte Wildcard SSL Certificate,SSL Certificate,Thawte Wildcard SSL Certificate,Security & Backup
+Infrastructure Hosting,Business VPS Hosting,Business VPS: Large,VPS,Business VPS – Large,VPS & Cloud Servers
+Infrastructure Hosting,Business VPS Hosting,Business VPS: Medium,VPS,Business VPS – Medium,VPS & Cloud Servers
+Infrastructure Hosting,Business VPS Hosting,Business VPS Hosting,VPS,Business VPS – Small,VPS & Cloud Servers
+Infrastructure Hosting,Business VPS Hosting,Business VPS: X Large,VPS,Business VPS – X Large,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Linux): Large,VPS,Hyper-V VPS (Linux) – Large,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Linux): Medium,VPS,Hyper-V VPS (Linux) – Medium,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Linux): Small,VPS,Hyper-V VPS (Linux) – Small,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Windows): Large,VPS,Hyper-V VPS (Windows) – Large,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Windows): Medium,VPS,Hyper-V VPS (Windows) – Medium,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Windows): Small,VPS,Hyper-V VPS (Windows) – Small,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Windows): X Large,VPS,Hyper-V VPS (Windows) – X Large,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,KVM VPS: Large,VPS,KVM VPS – Large,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,KVM VPS: Medium,VPS,KVM VPS – Medium,VPS & Cloud Servers
+Infrastructure Hosting,Virtual Private Servers,KVM VPS: Small,VPS,KVM VPS – Small,VPS & Cloud Servers
+Application Hosting,Domain Addition,Linux Hosting: Medium,Linux Hosting (cPanel),Linux Hosting – Medium (Domain Addition),Web Hosting
+Application Hosting,Web Hosting,DISCONTINUED - Linux Hosting: X Large,Linux Hosting (cPanel),Linux Hosting – X Large (Discontinued),Web Hosting
+Application Hosting,Web Hosting,DISCONTINUED - Linux Hosting: XX Large,Linux Hosting (cPanel),Linux Hosting – XX Large (Discontinued),Web Hosting
+Application Hosting,Web Hosting,Linux Hosting: Large,Linux Hosting (cPanel),Linux Hosting – Large,Web Hosting
+Application Hosting,Web Hosting,Linux Hosting: Medium,Linux Hosting (cPanel),Linux Hosting – Medium,Web Hosting
+Application Hosting,Web Hosting,Linux Hosting: Small,Linux Hosting (cPanel),Linux Hosting – Small,Web Hosting
+Application Hosting,Web Hosting,Linux Hosting: X Small,Linux Hosting (cPanel),Linux Hosting – X Small,Web Hosting
+Application Hosting,Web Hosting,Plesk Linux Hosting: Large,Linux Hosting (Plesk),Plesk Linux Hosting – Large,Web Hosting
+Application Hosting,Web Hosting,Plesk Linux Hosting: Litespeed Small,Linux Hosting (Plesk),Plesk Linux Hosting – Litespeed Small,Web Hosting
+Application Hosting,Web Hosting,Plesk Linux Hosting: Medium,Linux Hosting (Plesk),Plesk Linux Hosting – Medium,Web Hosting
+Application Hosting,Web Hosting,Plesk Linux Hosting: Small,Linux Hosting (Plesk),Plesk Linux Hosting – Small,Web Hosting
+Application Hosting,Web Hosting,Plesk Linux Hosting: XLarge,Linux Hosting (Plesk),Plesk Linux Hosting – X Large,Web Hosting
+Application Hosting,Web Hosting,Plesk Linux Hosting: XX Large,Linux Hosting (Plesk),Plesk Linux Hosting – XX Large,Web Hosting
+Application Hosting,Web Hosting,Plesk Linux Hosting: XXX Large,Linux Hosting (Plesk),Plesk Linux Hosting – XXX Large,Web Hosting
+Application Hosting,Web Hosting,Windows Plesk: 5XLarge,Windows Hosting (Plesk),Windows Plesk – 5X Large,Web Hosting
+Application Hosting,Web Hosting,Windows Plesk: Large,Windows Hosting (Plesk),Windows Plesk – Large,Web Hosting
+Application Hosting,Web Hosting,Windows Plesk: Medium,Windows Hosting (Plesk),Windows Plesk – Medium,Web Hosting
+Application Hosting,Web Hosting,Windows Plesk: Small,Windows Hosting (Plesk),Windows Plesk – Small,Web Hosting
+Application Hosting,Web Hosting,Windows Plesk: X Large,Windows Hosting (Plesk),Windows Plesk – X Large,Web Hosting
+Application Hosting,Web Hosting,Windows Plesk: XX Large,Windows Hosting (Plesk),Windows Plesk – XX Large,Web Hosting
+Application Hosting,Web Hosting,Windows Plesk: XXXX Large,Windows Hosting (Plesk),Windows Plesk – XXXX Large,Web Hosting
+Application Hosting,WordPress Hosting,WordPress Hosting - Large,WordPress Hosting,WordPress Hosting – Large,Web Hosting
+Application Hosting,WordPress Hosting,WordPress Hosting - Medium,WordPress Hosting,WordPress Hosting – Medium,Web Hosting
+Application Hosting,WordPress Hosting,WordPress Hosting - Small,WordPress Hosting,WordPress Hosting – Small,Web Hosting
+Web Services,Do it For Me - Website Design,Do It For Me - Website Design (DIFM Basic),Website Design,Website Design (DIFM) – Basic,Website Design
+Web Services,Do it For Me - Website Design,Do It For Me - Website Design (DIFM Premium),Website Design,Website Design (DIFM) – Premium,Website Design
+Web Services,Do it For Me - Website Design,Do It For Me - Website Design (DIFM Standard),Website Design,Website Design (DIFM) – Standard,Website Design
+Web Services,Do it For Me - Website Design,Do It For Me - Website Design old one,Website Design,Website Design (DIFM) – Legacy,Website Design
+Web Services,Do it For Me - Website Design,Website Migration Once-off,Website Migration,Website Migration Once-off,Website Migration
+Application Hosting,Domain Addition,Website Builder: Medium,Website Builder,Website Builder – Medium (Domain Addition),Website Design
+Application Hosting,Domain Addition,Website Builder: Small,Website Builder,Website Builder – Small (Domain Addition),Website Design
+Application Hosting,Website Builder,Website Builder - Company Registration,Website Builder,Website Builder - Company Registration,Website Design
+Application Hosting,Website Builder,Website Builder: Basic,Website Builder,Website Builder – Basic,Website Design
+Application Hosting,Website Builder,Website Builder: Premium,Website Builder,Website Builder – Premium,Website Design
+Application Hosting,Website Builder,Website Builder: Standard,Website Builder,Website Builder – Standard,Website Design
+Web Services,Website Design,WB Website Design : Medium,Website Design,Website Design (Website Builder) – Medium,Website Design
+Web Services,Website Design,WB Website Design : Small,Website Design,Website Design (Website Builder) – Small,Website Design
+Web Services,Website Design,Website Design: Medium,Website Design,Website Design – Medium,Website Design
+Web Services,Website Design,Website Design: Small,Website Design,Website Design – Small,Website Design
+Web Services,Website Rank,Website Rank: Small,SEO,Website Rank – Small,SEO

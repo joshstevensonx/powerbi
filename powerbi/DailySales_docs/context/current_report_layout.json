@@ -1,0 +1,5125 @@
+{
+ "theme": {
+  "baseTheme": {
+   "name": "CY26SU09",
+   "reportVersionAtImport": {
+    "visual": "2.13.0",
+    "report": "3.4.0",
+    "page": "2.3.1"
+   },
+   "type": "SharedResources"
+  },
+  "customTheme": {
+   "name": "1-grid_Brand1095741689915648.json",
+   "reportVersionAtImport": {
+    "visual": "2.13.0",
+    "report": "3.4.0",
+    "page": "2.3.1"
+   },
+   "type": "RegisteredResources"
+  }
+ },
+ "report_filters": [
+  {
+   "field": "Calendar[Year]",
+   "type": "Categorical",
+   "how": "User"
+  },
+  {
+   "field": "Calendar[Date (format)]",
+   "type": "RelativeDate",
+   "how": "User",
+   "condition": "BETWEEN DateSpan(DateAdd(DateAdd(Now,1,0),-4,3)) AND DateSpan(Now)"
+  }
+ ],
+ "settings": {
+  "useStylableVisualContainerHeader": true,
+  "defaultDrillFilterOtherVisuals": true,
+  "useCrossReportDrillthrough": true,
+  "allowChangeFilterTypes": true,
+  "useEnhancedTooltips": false
+ },
+ "pages": [
+  {
+   "id": "9bed4166a49c54d620b1",
+   "name": "TEMPLATE",
+   "visibility": "Visible",
+   "width": 1500,
+   "height": 1000,
+   "type": null,
+   "binding": {
+    "type": "Drillthrough",
+    "params": [
+     "revenue_orders_tbl[Category]",
+     "revenue_orders_tbl[Product Name]"
+    ]
+   },
+   "filters": [
+    {
+     "field": "revenue_orders_tbl[Product Name]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Status_Group]",
+     "type": "Categorical",
+     "how": "User"
+    },
+    {
+     "field": "revenue_orders_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    },
+    {
+     "field": "orders_invoices_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    }
+   ],
+   "visuals": [
+    {
+     "id": "d867ec4e77a032ada364",
+     "type": "shape",
+     "title": "Header",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 70,
+     "z": 0,
+     "group": "2c3547702fce964b50c9",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "7750521fbeddc84bef92",
+     "type": "cardVisual",
+     "title": "Paid",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 288,
+     "h": 100,
+     "z": 0,
+     "group": "e28949bc269da6caec90",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "270b2e6acfc7d5983bf5",
+     "type": "treemap",
+     "title": "Where does revenue come from? Category \u203a sub-category (paid, excl. VAT)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Details": [
+       "revenue_orders_tbl[Sub Category]"
+      ],
+      "Group": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Values": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 596,
+     "h": 399,
+     "z": 0,
+     "group": "93e7a77506573ccce847",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "868aea43fd31ab9517dd",
+     "type": "shape",
+     "title": "Filter",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 280,
+     "h": 912,
+     "z": 0,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "785e619ee861ccb017ca",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Billing",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[billing_cycle]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 126,
+     "h": 62,
+     "z": 8000,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "5bacfd1dc18822986e7d",
+     "type": "cardVisual",
+     "title": "Unpaid & Cancelled",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Unpaid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Unpaid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Status_Group]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Cancelled & Unpaid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 296,
+     "y": 0,
+     "w": 288,
+     "h": 100,
+     "z": 1000,
+     "group": "e28949bc269da6caec90",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "2430d13f4a7b76e35d06",
+     "type": "cardVisual",
+     "title": "Customer Type",
+     "title_shown": "false",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ],
+      "Rows": [
+       "revenue_orders_tbl[type_of_customer]"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 592,
+     "y": 0,
+     "w": 608,
+     "h": 100,
+     "z": 2000,
+     "group": "e28949bc269da6caec90",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "c6e0f25d7739aa1f2c50",
+     "type": "clusteredBarChart",
+     "title": "Which products earn the most? Top 10 products by paid revenue (excl. VAT)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Product Name]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Product Name]",
+       "type": "TopN",
+       "how": null,
+       "condition": "IN {}"
+      }
+     ],
+     "hidden": false,
+     "x": 604,
+     "y": 0,
+     "w": 596,
+     "h": 399,
+     "z": 1000,
+     "group": "93e7a77506573ccce847",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "71d5416a695057a0891d",
+     "type": "textbox",
+     "title": "Title",
+     "title_shown": null,
+     "header": null,
+     "text": "TEMPLATE | Dashboard",
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 5,
+     "y": 5,
+     "w": 900,
+     "h": 60,
+     "z": 2000,
+     "group": "2c3547702fce964b50c9",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "cf4ffa4a4c8a0bc16504",
+     "type": "image",
+     "title": "Logo",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 1385,
+     "y": 5,
+     "w": 110,
+     "h": 60,
+     "z": 1000,
+     "group": "2c3547702fce964b50c9",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "34423f5dfcf5619bb19d",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 12,
+     "w": 260,
+     "h": 59,
+     "z": 9000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "0bb328f53e943ebafdd7",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Service Status",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[service_status]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 70,
+     "w": 126,
+     "h": 62,
+     "z": 4000,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e10791840303a5f40a83",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Domain",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[domain]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 134,
+     "y": 70,
+     "w": 126,
+     "h": 62,
+     "z": 2000,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "80990e31119390fd35a2",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Date",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 73,
+     "w": 260,
+     "h": 61,
+     "z": 7000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "86aa6c61752810404a31",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Customer Age",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[customer_tenure_group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 140,
+     "w": 126,
+     "h": 62,
+     "z": 5000,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "2ee10e00ef3f5f8caaa7",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 140,
+     "w": 260,
+     "h": 61,
+     "z": 1000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "ab97916ca688620fa645",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Discovery Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[heard_about_us]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 134,
+     "y": 140,
+     "w": 126,
+     "h": 62,
+     "z": 3000,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8cb93d780250888605eb",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Sub-category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sub Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 208,
+     "w": 260,
+     "h": 61,
+     "z": 2000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b01f4f0cf08428b7787b",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Product Name]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 277,
+     "w": 260,
+     "h": 61,
+     "z": 3000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "044ad0e7cb2607d6e458",
+     "type": "slicer",
+     "title": "Country",
+     "title_shown": null,
+     "header": "Country",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_country]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 280,
+     "w": 126,
+     "h": 62,
+     "z": 0,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "5e70ca1cd5e49ca8ecf7",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Province",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_state]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 134,
+     "y": 280,
+     "w": 126,
+     "h": 62,
+     "z": 1000,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "d570f4a8ec2deb559cbb",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Payment Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_paymethod]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 144,
+     "y": 346,
+     "w": 126,
+     "h": 61,
+     "z": 8000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e39a3b3b3a296c5345fa",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Company",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[companyname]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 350,
+     "w": 126,
+     "h": 62,
+     "z": 7000,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e1aae5d84114e20090dc",
+     "type": "hundredPercentStackedBarChart",
+     "title": "Monthly or annual? Billing-cycle mix of paid revenue by category",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Series": [
+       "revenue_orders_tbl[billing_cycle]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 407,
+     "w": 596,
+     "h": 399,
+     "z": 2000,
+     "group": "93e7a77506573ccce847",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "558007c5baa10a0a1f55",
+     "type": "hundredPercentStackedBarChart",
+     "title": "How much revenue comes from add-ons? Base vs add-on share by category",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Series": [
+       "revenue_orders_tbl[base_or_addon]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 604,
+     "y": 407,
+     "w": 596,
+     "h": 399,
+     "z": 3000,
+     "group": "93e7a77506573ccce847",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "68f6a90996e0310cfac4",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "IP Address",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[ip]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 490,
+     "w": 260,
+     "h": 62,
+     "z": 6000,
+     "group": "377824d331ac1fa12c27",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "86935b07757a3e601f2a",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Channel",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sales Channel]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 16,
+     "y": 634,
+     "w": 101,
+     "h": 62,
+     "z": 8000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "abff1978b6d90f1e6cfe",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client Grp",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Client Group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 123,
+     "y": 634,
+     "w": 101,
+     "h": 62,
+     "z": 9000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a7f0aeef33105eb70ccc",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[client_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 144,
+     "y": 690,
+     "w": 126,
+     "h": 61,
+     "z": 6000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b2da98d247c4dfb63dbf",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Order ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[order_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 759,
+     "w": 126,
+     "h": 61,
+     "z": 5000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "5e5b5fad4a5178a5ac0b",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Invoice ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 144,
+     "y": 759,
+     "w": 126,
+     "h": 61,
+     "z": 4000,
+     "group": "61755ae8d473419f6d52",
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {
+    "93e7a77506573ccce847": "Group 1",
+    "2c3547702fce964b50c9": "Header Bar",
+    "e28949bc269da6caec90": "KPIS",
+    "61755ae8d473419f6d52": "Filters",
+    "377824d331ac1fa12c27": "Filters"
+   }
+  },
+  {
+   "id": "ae2df54cc0f9961bdc31",
+   "name": "Data_Exploration",
+   "visibility": "Visible",
+   "width": 1500,
+   "height": 900,
+   "type": null,
+   "binding": {
+    "type": "Drillthrough",
+    "params": [
+     "revenue_orders_tbl[Category]",
+     "revenue_orders_tbl[Product Name]"
+    ]
+   },
+   "filters": [
+    {
+     "field": "revenue_orders_tbl[Product Name]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Status_Group]",
+     "type": "Categorical",
+     "how": "User"
+    }
+   ],
+   "visuals": [
+    {
+     "id": "4d3089d4f473648a166f",
+     "type": "shape",
+     "title": "Header",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 100,
+     "z": 0,
+     "group": "29b6ebfabb548d20368b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "9bc8d79013f535e1f78c",
+     "type": "shape",
+     "title": "Filter",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 100,
+     "z": 0,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "de02e6e7830b17904e3c",
+     "type": "shape",
+     "title": "KPI",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1496,
+     "h": 89,
+     "z": 0,
+     "group": "244d27f49616794e9781",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "6d6876f0e66bcd53f0c4",
+     "type": "shape",
+     "title": "KPI",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 100,
+     "z": 0,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8126f31a388316d35366",
+     "type": "cardVisual",
+     "title": "Paid",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 5,
+     "y": 4,
+     "w": 349,
+     "h": 80,
+     "z": 1000,
+     "group": "244d27f49616794e9781",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "452dd57baffd2e17ac04",
+     "type": "cardVisual",
+     "title": "Unpaid & Cancelled",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Unpaid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Unpaid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Status_Group]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Cancelled & Unpaid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 354,
+     "y": 4,
+     "w": 349,
+     "h": 80,
+     "z": 2000,
+     "group": "244d27f49616794e9781",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "ecb506bdac69a6c566eb",
+     "type": "cardVisual",
+     "title": "Customer Type",
+     "title_shown": "false",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ],
+      "Rows": [
+       "revenue_orders_tbl[type_of_customer]"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 703,
+     "y": 4,
+     "w": 788,
+     "h": 80,
+     "z": 3000,
+     "group": "244d27f49616794e9781",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b54ea720873004c9c666",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Date",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 5,
+     "y": 5,
+     "w": 180,
+     "h": 90,
+     "z": 7000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "97f7f5debde421f5ed47",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Billling Cycle",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[billing_cycle]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 5,
+     "y": 5,
+     "w": 175,
+     "h": 90,
+     "z": 9000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a2e1342fbc88ac482cdb",
+     "type": "slicer",
+     "title": "Country",
+     "title_shown": null,
+     "header": "Country",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_country]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 180,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 1000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8dcbcb6ab19d1590c589",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 185,
+     "y": 5,
+     "w": 260,
+     "h": 90,
+     "z": 9000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "728e745217d05690a2bf",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Province",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_state]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 344,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 2000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "767db7e5cf1cd343395a",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 445,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 1000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "526ed39ae5a326bc219f",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Domain",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[domain]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 509,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 3000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "4c9623d5827633d74d72",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Sub-category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sub Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 595,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 2000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "90eb925d50c04fcb61df",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Discovery Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[heard_about_us]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 673,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 4000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "1b5d24fef371578c4f89",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Product Name]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 745,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 3000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "08726b30b360dfebd836",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Service Status",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[service_status]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 838,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 5000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "2b8cfc8bdaec8be56142",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Invoice ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 895,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 4000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "1c3bf3542bc7f6532bb7",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Customer Age",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[customer_tenure_group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1002,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 6000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "f108ce11570d8d46cb22",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Order ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[order_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1045,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 5000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "3830754408f0488925a1",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Sales Channel",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sales Channel]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1166,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 7000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "877e672f78e84ae812f0",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[client_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1195,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 6000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "4c4a979e718bc0aab6a6",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client Group",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Client Group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1331,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 8000,
+     "group": "33cf07704ca00fbf8545",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "42f5f03a592d611f38f7",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Payment Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_paymethod]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1345,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 8000,
+     "group": "d1b712378965e337d621",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "f796c763193614614169",
+     "type": "textbox",
+     "title": "Title",
+     "title_shown": null,
+     "header": null,
+     "text": "PRODUCT SALES | Overview",
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 10,
+     "w": 1008,
+     "h": 80,
+     "z": 2000,
+     "group": "29b6ebfabb548d20368b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "6afe63cd212f2f37cb89",
+     "type": "image",
+     "title": "Logo",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 1312,
+     "y": 10,
+     "w": 184,
+     "h": 80,
+     "z": 1000,
+     "group": "29b6ebfabb548d20368b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a76edb34070c6875e549",
+     "type": "pivotTable",
+     "title": null,
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": -4,
+     "y": 384,
+     "w": 1500,
+     "h": 512,
+     "z": 4000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "cce2bc21ea2a156a0383",
+     "type": "shape",
+     "title": "Grid 1",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 390,
+     "w": 745,
+     "h": 200,
+     "z": 3000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "3ae371bebcb3fe3ef9d1",
+     "type": "shape",
+     "title": "Grid 2",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 745,
+     "y": 390,
+     "w": 745,
+     "h": 200,
+     "z": 2000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e90dbcae385c9f0270ba",
+     "type": "shape",
+     "title": "Grid 3",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 600,
+     "w": 742,
+     "h": 294,
+     "z": 1000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "c8e7679c83eaad13e437",
+     "type": "shape",
+     "title": "Grid 4",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 742,
+     "y": 600,
+     "w": 742,
+     "h": 296,
+     "z": 0,
+     "group": null,
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {
+    "33cf07704ca00fbf8545": "Filters",
+    "29b6ebfabb548d20368b": "Header Bar",
+    "244d27f49616794e9781": "KPIS",
+    "d1b712378965e337d621": "Filters"
+   }
+  },
+  {
+   "id": "59ef9e5a9e83a6a9ea8e",
+   "name": "PRODUCT SALES",
+   "visibility": "Visible",
+   "width": 1500,
+   "height": 900,
+   "type": null,
+   "binding": {
+    "type": "Drillthrough",
+    "params": [
+     "revenue_orders_tbl[Category]",
+     "revenue_orders_tbl[Product Name]"
+    ]
+   },
+   "filters": [
+    {
+     "field": "revenue_orders_tbl[Product Name]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Status_Group]",
+     "type": "Categorical",
+     "how": "User"
+    },
+    {
+     "field": "revenue_orders_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    },
+    {
+     "field": "orders_invoices_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    }
+   ],
+   "visuals": [
+    {
+     "id": "bb82594858912910bdb2",
+     "type": "shape",
+     "title": "KPI",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1496,
+     "h": 89,
+     "z": 0,
+     "group": "24147a0db75389849197",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "0bd1c50a825cb095a8e0",
+     "type": "shape",
+     "title": "Filter",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 100,
+     "z": 0,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "40c93046038920324cb3",
+     "type": "shape",
+     "title": "KPI",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 100,
+     "z": 0,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "4d81126e0001a0185381",
+     "type": "shape",
+     "title": "Header",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 100,
+     "z": 0,
+     "group": "2ccf388210b7e5726266",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8d8f2d519b83ad36cd1c",
+     "type": "cardVisual",
+     "title": "Paid",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 5,
+     "y": 4,
+     "w": 349,
+     "h": 80,
+     "z": 1000,
+     "group": "24147a0db75389849197",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a17412fec2d0d0c080cc",
+     "type": "cardVisual",
+     "title": "Unpaid & Cancelled",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Unpaid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Unpaid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Status_Group]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Cancelled & Unpaid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 354,
+     "y": 4,
+     "w": 349,
+     "h": 80,
+     "z": 2000,
+     "group": "24147a0db75389849197",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "72c2b5596a9560c0b96b",
+     "type": "cardVisual",
+     "title": "Customer Type",
+     "title_shown": "false",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ],
+      "Rows": [
+       "revenue_orders_tbl[type_of_customer]"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 703,
+     "y": 4,
+     "w": 788,
+     "h": 80,
+     "z": 3000,
+     "group": "24147a0db75389849197",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "ac092f60e07ac979a118",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Billling Cycle",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[billing_cycle]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 5,
+     "y": 5,
+     "w": 175,
+     "h": 90,
+     "z": 9000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "94629704406dce55c104",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Date",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 5,
+     "y": 5,
+     "w": 180,
+     "h": 90,
+     "z": 7000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e810874ebe199768832b",
+     "type": "slicer",
+     "title": "Country",
+     "title_shown": null,
+     "header": "Country",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_country]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 180,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 1000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "76f96b8a5a908be3146b",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 185,
+     "y": 5,
+     "w": 260,
+     "h": 90,
+     "z": 9000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "17848c87506338d7c21b",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Province",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_state]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 344,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 2000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "2e69b4e49ce582711015",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 445,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 1000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "7265c0f58c91caa70826",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Domain",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[domain]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 509,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 3000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "d639e7d44284e7347ac5",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Sub-category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sub Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 595,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 2000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "374893a944cbd0159545",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Discovery Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[heard_about_us]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 673,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 4000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "0b4af8250c796da425e2",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Product Name]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 745,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 3000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "358bef3a0ba858c32866",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Service Status",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[service_status]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 838,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 5000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "46f0214d5b15c58b81cb",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Invoice ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 895,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 4000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "568cbb0cd2b9dc5d029d",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Customer Age",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[customer_tenure_group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1002,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 6000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "0bac422a0040a6a4c8ba",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Order ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[order_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1045,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 5000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a604a10c08bc6b688391",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "IP Address",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[ip]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1166,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 7000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "24b54dec29e0e2c64de3",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[client_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1195,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 6000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a1eadc41b88dc7acd0a3",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client Group",
+     "text": null,
+     "roles": {
+      "Values": [
+       "client_groups[groupname]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1331,
+     "y": 5,
+     "w": 164,
+     "h": 90,
+     "z": 8000,
+     "group": "c7fc5d01dc1c9e3dd8be",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "bca029f3914080504ed2",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Payment Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_paymethod]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1345,
+     "y": 5,
+     "w": 150,
+     "h": 90,
+     "z": 8000,
+     "group": "f0d3ca1a77c56aa52c8b",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b44258a0ecd70c49b50d",
+     "type": "textbox",
+     "title": "Title",
+     "title_shown": null,
+     "header": null,
+     "text": "PRODUCT SALES | Overview",
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 10,
+     "w": 1008,
+     "h": 80,
+     "z": 2000,
+     "group": "2ccf388210b7e5726266",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8f2a0701da3891d20670",
+     "type": "image",
+     "title": "Logo",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 1312,
+     "y": 10,
+     "w": 184,
+     "h": 80,
+     "z": 1000,
+     "group": "2ccf388210b7e5726266",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "d35be007c48153023bea",
+     "type": "pivotTable",
+     "title": null,
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Rows": [
+       "revenue_orders_tbl[Category]",
+       "revenue_orders_tbl[Product Name]"
+      ],
+      "Values": [
+       "Revenue (R) \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Revenue (%) \u2190 {\"Arithmetic\": {\"Left\": {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"revenue_orders_tbl\"}}, \"Property\": \"Paid Re",
+       "Orders (#) \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)",
+       "Orders (%) \u2190 {\"Arithmetic\": {\"Left\": {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Entity\": \"revenue_orders_tbl\"}}, \"Property\": \"Paid Or"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": -4,
+     "y": 384,
+     "w": 1500,
+     "h": 512,
+     "z": 4000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "06817f81ecdb7b737b05",
+     "type": "shape",
+     "title": "Grid 1",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 390,
+     "w": 745,
+     "h": 200,
+     "z": 3000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "034d778e4d05084ecaa0",
+     "type": "shape",
+     "title": "Grid 2",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 745,
+     "y": 390,
+     "w": 745,
+     "h": 200,
+     "z": 2000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b24bc38b76313d421528",
+     "type": "shape",
+     "title": "Grid 3",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 600,
+     "w": 742,
+     "h": 294,
+     "z": 1000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "cc49a9aa70e00480191c",
+     "type": "shape",
+     "title": "Grid 4",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 742,
+     "y": 600,
+     "w": 742,
+     "h": 296,
+     "z": 0,
+     "group": null,
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {
+    "f0d3ca1a77c56aa52c8b": "Filters",
+    "2ccf388210b7e5726266": "Header Bar",
+    "24147a0db75389849197": "KPIS",
+    "c7fc5d01dc1c9e3dd8be": "Filters"
+   }
+  },
+  {
+   "id": "74f9cd7b56909e3b2a88",
+   "name": "SALES TRENDS",
+   "visibility": "Visible",
+   "width": 1500,
+   "height": 1000,
+   "type": null,
+   "binding": {
+    "type": "Drillthrough",
+    "params": [
+     "revenue_orders_tbl[Category]",
+     "revenue_orders_tbl[Product Name]"
+    ]
+   },
+   "filters": [
+    {
+     "field": "revenue_orders_tbl[Product Name]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Status_Group]",
+     "type": "Categorical",
+     "how": "User"
+    },
+    {
+     "field": "revenue_orders_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    },
+    {
+     "field": "orders_invoices_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    }
+   ],
+   "visuals": [
+    {
+     "id": "cbbc3397ab848e872256",
+     "type": "shape",
+     "title": "Filter",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 224,
+     "h": 916,
+     "z": 0,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "86542b38a790e45ed5e6",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Billing Cycle",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[billing_cycle]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 208,
+     "h": 40,
+     "z": 8000,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "c8ff4e47cb636ae0b2a4",
+     "type": "shape",
+     "title": "Header",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 68,
+     "z": 0,
+     "group": "97a19996bb49a3cc019c",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "d8c376fe1be002868135",
+     "type": "cardVisual",
+     "title": "Paid",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 300,
+     "h": 100,
+     "z": 0,
+     "group": "22ccfb9ea2823b9e5a75",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8b26fe2a6b6dc288d07e",
+     "type": "cardVisual",
+     "title": "Unpaid & Cancelled",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Unpaid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Unpaid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Status_Group]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Cancelled & Unpaid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 308,
+     "y": 0,
+     "w": 300,
+     "h": 100,
+     "z": 1000,
+     "group": "22ccfb9ea2823b9e5a75",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "ec23b5a4de5ac4300997",
+     "type": "cardVisual",
+     "title": "Customer Type",
+     "title_shown": "false",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ],
+      "Rows": [
+       "revenue_orders_tbl[type_of_customer]"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 616,
+     "y": 0,
+     "w": 632,
+     "h": 100,
+     "z": 2000,
+     "group": "22ccfb9ea2823b9e5a75",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "c90f5e590e00e17bb97d",
+     "type": "textbox",
+     "title": "Title",
+     "title_shown": null,
+     "header": null,
+     "text": "SALES TRENDS | Overview",
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 16,
+     "y": 2,
+     "w": 900,
+     "h": 64,
+     "z": 2000,
+     "group": "97a19996bb49a3cc019c",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "9e1b1fcddee5ecc04060",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 8,
+     "w": 208,
+     "h": 60,
+     "z": 9000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e2b42454dc4a879ecd38",
+     "type": "image",
+     "title": "Logo",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 1376,
+     "y": 10,
+     "w": 110,
+     "h": 48,
+     "z": 1000,
+     "group": "97a19996bb49a3cc019c",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "db3f153c3985de8336a2",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Date",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 70,
+     "w": 208,
+     "h": 62,
+     "z": 7000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "3a073d9233d5059d5089",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Service Status",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[service_status]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 96,
+     "w": 208,
+     "h": 40,
+     "z": 4000,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "99d753e68ee11ec0de0d",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 138,
+     "w": 208,
+     "h": 40,
+     "z": 1000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "0cc48a0ae309234ac430",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Domain",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[domain]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 144,
+     "w": 208,
+     "h": 40,
+     "z": 2000,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "5075f6f0b0400e8e3863",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Sub-category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sub Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 186,
+     "w": 208,
+     "h": 40,
+     "z": 2000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e4516d88395c63672ddb",
+     "type": "lineClusteredColumnComboChart",
+     "title": "Is paid revenue growing? Weekly revenue excl. VAT (bars) vs orders (line)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "Calendar[WeekDate]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ],
+      "Y2": [
+       "revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 244,
+     "y": 186,
+     "w": 620,
+     "h": 399,
+     "z": 5000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8e4f5a10e468b39dcad5",
+     "type": "clusteredBarChart",
+     "title": "Which categories earn the revenue? Paid revenue by category (excl. VAT)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 872,
+     "y": 186,
+     "w": 620,
+     "h": 399,
+     "z": 6000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "70fdcfc4122cdb00c360",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Customer Age",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[customer_tenure_group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 192,
+     "w": 208,
+     "h": 40,
+     "z": 5000,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "86adf5a98bb3101c474c",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Product Name]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 234,
+     "w": 208,
+     "h": 40,
+     "z": 3000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "ef3e52b603a2504b699a",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Discovery Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[heard_about_us]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 240,
+     "w": 208,
+     "h": 40,
+     "z": 3000,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "eb3bff39b809d660683a",
+     "type": "slicer",
+     "title": "Country",
+     "title_shown": null,
+     "header": "Country",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_country]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 288,
+     "w": 208,
+     "h": 40,
+     "z": 0,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "f44233fced1237716210",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Payment Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_paymethod]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 330,
+     "w": 208,
+     "h": 40,
+     "z": 8000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "dc150f03120ad6800c3b",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Province",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_state]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 336,
+     "w": 208,
+     "h": 40,
+     "z": 1000,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "40bc310904741a3ca4e7",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Company",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[companyname]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 384,
+     "w": 208,
+     "h": 40,
+     "z": 7000,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "5526b07a5008abbc9587",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "IP Address",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[ip]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 576,
+     "w": 208,
+     "h": 40,
+     "z": 6000,
+     "group": "e5e1ec265dc479004802",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "6f0f2861061080868039",
+     "type": "columnChart",
+     "title": "How is the category mix shifting? Weekly paid revenue by category (excl. VAT)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "Calendar[WeekDate]"
+      ],
+      "Series": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 244,
+     "y": 593,
+     "w": 620,
+     "h": 399,
+     "z": 4000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a39b9ce8827cc63019bb",
+     "type": "columnChart",
+     "title": "Is invoiced value being collected? Weekly invoice value by status (excl. VAT)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "Calendar[WeekDate]"
+      ],
+      "Series": [
+       "revenue_orders_tbl[invoice_status]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[RO Invoice Total] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 872,
+     "y": 593,
+     "w": 620,
+     "h": 399,
+     "z": 7000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "9c54d0212077e408025d",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[client_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 714,
+     "w": 208,
+     "h": 40,
+     "z": 6000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "649c7b34637204544d2e",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Order ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[order_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 762,
+     "w": 208,
+     "h": 40,
+     "z": 5000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "5fc7a655d266c540c84d",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Invoice ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 810,
+     "w": 208,
+     "h": 40,
+     "z": 4000,
+     "group": "6b897c308d0437c63770",
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {
+    "22ccfb9ea2823b9e5a75": "KPIS",
+    "6b897c308d0437c63770": "Filters",
+    "97a19996bb49a3cc019c": "Header Bar",
+    "e5e1ec265dc479004802": "Filters"
+   }
+  },
+  {
+   "id": "b809e57601669c584b8a",
+   "name": "CUSTOMER INSIGHTS",
+   "visibility": "Visible",
+   "width": 1500,
+   "height": 1000,
+   "type": null,
+   "binding": {
+    "type": "Drillthrough",
+    "params": [
+     "revenue_orders_tbl[Category]",
+     "revenue_orders_tbl[Product Name]"
+    ]
+   },
+   "filters": [
+    {
+     "field": "revenue_orders_tbl[Product Name]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Status_Group]",
+     "type": "Categorical",
+     "how": "User"
+    },
+    {
+     "field": "revenue_orders_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    },
+    {
+     "field": "orders_invoices_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    }
+   ],
+   "visuals": [
+    {
+     "id": "af7b316866226a460c28",
+     "type": "cardVisual",
+     "title": "Paid",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 300,
+     "h": 100,
+     "z": 0,
+     "group": "0d2afd5d0c4906a1c117",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "052257c90e1346d64890",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Billing Cycle",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[billing_cycle]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 208,
+     "h": 40,
+     "z": 8000,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "0f34152592529400c61c",
+     "type": "shape",
+     "title": "Header",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 68,
+     "z": 0,
+     "group": "36b9b573890cced17740",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "92e6938ce0b8d250a963",
+     "type": "shape",
+     "title": "Filter",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 224,
+     "h": 916,
+     "z": 0,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "fe8d0e87ca0d18d4010e",
+     "type": "cardVisual",
+     "title": "Unpaid & Cancelled",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Unpaid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Unpaid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Status_Group]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Cancelled & Unpaid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 308,
+     "y": 0,
+     "w": 300,
+     "h": 100,
+     "z": 1000,
+     "group": "0d2afd5d0c4906a1c117",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "9dc69432302dc5a7e14e",
+     "type": "cardVisual",
+     "title": "Customer Type",
+     "title_shown": "false",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ],
+      "Rows": [
+       "revenue_orders_tbl[type_of_customer]"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 616,
+     "y": 0,
+     "w": 632,
+     "h": 100,
+     "z": 2000,
+     "group": "0d2afd5d0c4906a1c117",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "084261bea1713d0988dd",
+     "type": "textbox",
+     "title": "Title",
+     "title_shown": null,
+     "header": null,
+     "text": "CUSTOMER INSIGHTS | Overview",
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 16,
+     "y": 2,
+     "w": 900,
+     "h": 64,
+     "z": 2000,
+     "group": "36b9b573890cced17740",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "741878dbd78a8ebe57b0",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 8,
+     "w": 208,
+     "h": 60,
+     "z": 9000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "7cf59704e0b1c0632199",
+     "type": "image",
+     "title": "Logo",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 1376,
+     "y": 10,
+     "w": 110,
+     "h": 48,
+     "z": 1000,
+     "group": "36b9b573890cced17740",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "0fb381932685b5755093",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Date",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 70,
+     "w": 208,
+     "h": 62,
+     "z": 7000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b4a0140941e80ca8bb60",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Service Status",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[service_status]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 96,
+     "w": 208,
+     "h": 40,
+     "z": 4000,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b9e8d78300a3058e1e63",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 138,
+     "w": 208,
+     "h": 40,
+     "z": 1000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "ec75e72549edc60846b8",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Domain",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[domain]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 144,
+     "w": 208,
+     "h": 40,
+     "z": 2000,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "904faa041496b9ddbb19",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Sub-category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sub Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 186,
+     "w": 208,
+     "h": 40,
+     "z": 2000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a53bbf97a087033b37bc",
+     "type": "hundredPercentStackedColumnChart",
+     "title": "Is the new-customer share of paid revenue growing? (weekly)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "Calendar[WeekDate]"
+      ],
+      "Series": [
+       "revenue_orders_tbl[type_of_customer]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 244,
+     "y": 186,
+     "w": 410,
+     "h": 399,
+     "z": 0,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "76e646710ae296260c52",
+     "type": "clusteredBarChart",
+     "title": "What do new vs existing customers buy? Paid revenue by category (excl. VAT)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Series": [
+       "revenue_orders_tbl[type_of_customer]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 663,
+     "y": 186,
+     "w": 410,
+     "h": 399,
+     "z": 1000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "1771c7749e1e845b2a36",
+     "type": "clusteredBarChart",
+     "title": "How established are buyers? Paid revenue by account tenure",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[customer_tenure_group]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1082,
+     "y": 186,
+     "w": 410,
+     "h": 399,
+     "z": 2000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e36d1d69e79a5edbd756",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Customer Age",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[customer_tenure_group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 192,
+     "w": 208,
+     "h": 40,
+     "z": 5000,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "792d272195792918da7c",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Product Name]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 234,
+     "w": 208,
+     "h": 40,
+     "z": 3000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "c49569bdd6c6e5540e35",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Discovery Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[heard_about_us]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 240,
+     "w": 208,
+     "h": 40,
+     "z": 3000,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "2281b8a4eaba759cc046",
+     "type": "slicer",
+     "title": "Country",
+     "title_shown": null,
+     "header": "Country",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_country]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 288,
+     "w": 208,
+     "h": 40,
+     "z": 0,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "11f9a142bead8b9d39a9",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Payment Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_paymethod]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 330,
+     "w": 208,
+     "h": 40,
+     "z": 8000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "9410813864057b88d90b",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Province",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_state]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 336,
+     "w": 208,
+     "h": 40,
+     "z": 1000,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "fdd5ec236c8501262ee0",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Company",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[companyname]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 384,
+     "w": 208,
+     "h": 40,
+     "z": 7000,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "247816106cc6e4daadb1",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "IP Address",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[ip]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 576,
+     "w": 208,
+     "h": 40,
+     "z": 6000,
+     "group": "43ce52c179b5c099eb6e",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "605d7e453d17381603c7",
+     "type": "clusteredBarChart",
+     "title": "Where are buyers? Top 12 provinces by paid revenue",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[client_state]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[client_state]",
+       "type": "TopN",
+       "how": null,
+       "condition": "IN {}"
+      }
+     ],
+     "hidden": false,
+     "x": 244,
+     "y": 593,
+     "w": 410,
+     "h": 399,
+     "z": 3000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "1a42acfb2a7cd89b8881",
+     "type": "clusteredBarChart",
+     "title": "Which marketing sources bring revenue? (heard about us)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[heard_about_us]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 663,
+     "y": 593,
+     "w": 410,
+     "h": 399,
+     "z": 4000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "3c723db6424990082dd6",
+     "type": "clusteredBarChart",
+     "title": "Online or agent? Paid revenue by sign-up channel",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[signup_agent]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 1082,
+     "y": 593,
+     "w": 410,
+     "h": 399,
+     "z": 5000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "2b9fc36b3028a3d860a0",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[client_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 714,
+     "w": 208,
+     "h": 40,
+     "z": 6000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "bcbde50b4948a9cd9ae0",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Order ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[order_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 762,
+     "w": 208,
+     "h": 40,
+     "z": 5000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "fdbb5d0e541c5ae9379a",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Invoice ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 810,
+     "w": 208,
+     "h": 40,
+     "z": 4000,
+     "group": "9046e92ae1e5740a78da",
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {
+    "43ce52c179b5c099eb6e": "Filters",
+    "0d2afd5d0c4906a1c117": "KPIS",
+    "36b9b573890cced17740": "Header Bar",
+    "9046e92ae1e5740a78da": "Filters"
+   }
+  },
+  {
+   "id": "6e3a0e8734070996d2b4",
+   "name": "PRODUCT MIX",
+   "visibility": "Visible",
+   "width": 1500,
+   "height": 1000,
+   "type": null,
+   "binding": {
+    "type": "Drillthrough",
+    "params": [
+     "revenue_orders_tbl[Category]",
+     "revenue_orders_tbl[Product Name]"
+    ]
+   },
+   "filters": [
+    {
+     "field": "revenue_orders_tbl[Product Name]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Status_Group]",
+     "type": "Categorical",
+     "how": "User"
+    },
+    {
+     "field": "revenue_orders_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    },
+    {
+     "field": "orders_invoices_tbl[invoice_total]",
+     "type": "Advanced",
+     "how": "User",
+     "condition": "> 0L"
+    }
+   ],
+   "visuals": [
+    {
+     "id": "6ac536033b300c43470b",
+     "type": "shape",
+     "title": "Filter",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 224,
+     "h": 816,
+     "z": 0,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "ee80d60deccc8cadc8ee",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Billing",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[billing_cycle]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 101,
+     "h": 62,
+     "z": 8000,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "cf9e6d25c399b095cd8c",
+     "type": "shape",
+     "title": "Header",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1500,
+     "h": 68,
+     "z": 0,
+     "group": "b24c1f9e9ebc329875e3",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "183e103e3002486565e9",
+     "type": "cardVisual",
+     "title": "Paid",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 300,
+     "h": 100,
+     "z": 0,
+     "group": "fbd863267c6d80abeba4",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "35348690b73349ba9bee",
+     "type": "cardVisual",
+     "title": "Unpaid & Cancelled",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Unpaid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Unpaid Orders (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Status_Group]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Cancelled & Unpaid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 308,
+     "y": 0,
+     "w": 300,
+     "h": 100,
+     "z": 1000,
+     "group": "fbd863267c6d80abeba4",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "f50e6f037669e6c0c133",
+     "type": "cardVisual",
+     "title": "Customer Type",
+     "title_shown": "false",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "Total Revenue \u2190 revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "Total Orders \u2190 revenue_orders_tbl[Paid Orders (Products)] (M)"
+      ],
+      "Rows": [
+       "revenue_orders_tbl[type_of_customer]"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      },
+      {
+       "field": "orders_invoices_tbl[invoice_status]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 616,
+     "y": 0,
+     "w": 632,
+     "h": 100,
+     "z": 2000,
+     "group": "fbd863267c6d80abeba4",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "f8eca429a63310e0ed51",
+     "type": "textbox",
+     "title": "Title",
+     "title_shown": null,
+     "header": null,
+     "text": "PRODUCT MIX | Overview",
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 16,
+     "y": 7,
+     "w": 900,
+     "h": 60,
+     "z": 2000,
+     "group": "b24c1f9e9ebc329875e3",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "1ed40e7d7a370acb309c",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 8,
+     "w": 208,
+     "h": 60,
+     "z": 9000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8c9963f180c171078309",
+     "type": "image",
+     "title": "Logo",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 1376,
+     "y": 10,
+     "w": 110,
+     "h": 48,
+     "z": 1000,
+     "group": "b24c1f9e9ebc329875e3",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "080fea8b0d2355020a30",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Service Status",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[service_status]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 70,
+     "w": 101,
+     "h": 62,
+     "z": 4000,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "01e16025e96c37dcd583",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": "false",
+     "header": "Date",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Calendar[Date (format)]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 70,
+     "w": 208,
+     "h": 62,
+     "z": 7000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a6a04f03453ee8765905",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Domain",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[domain]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 107,
+     "y": 70,
+     "w": 101,
+     "h": 62,
+     "z": 2000,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "f9941ff7c3da9427cdad",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product Category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 138,
+     "w": 208,
+     "h": 62,
+     "z": 1000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "821de42dd4007de0c167",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Customer Age",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[customer_tenure_group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 140,
+     "w": 101,
+     "h": 62,
+     "z": 5000,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "bbb559a5dd8bc90c02e9",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Discovery Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[heard_about_us]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 107,
+     "y": 140,
+     "w": 101,
+     "h": 62,
+     "z": 3000,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b76e191d302e80ad510b",
+     "type": "treemap",
+     "title": "Where does revenue come from? Category \u203a sub-category (paid, excl. VAT)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Details": [
+       "revenue_orders_tbl[Sub Category]"
+      ],
+      "Group": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Values": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 244,
+     "y": 186,
+     "w": 620,
+     "h": 399,
+     "z": 0,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "f12c032ecba3d8b26d43",
+     "type": "clusteredBarChart",
+     "title": "Which products earn the most? Top 10 products by paid revenue (excl. VAT)",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Product Name]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Product Name]",
+       "type": "TopN",
+       "how": null,
+       "condition": "IN {}"
+      }
+     ],
+     "hidden": false,
+     "x": 872,
+     "y": 186,
+     "w": 620,
+     "h": 399,
+     "z": 1000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "8b99d5d81a100d5d8d28",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Sub-category",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sub Category]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 208,
+     "w": 208,
+     "h": 62,
+     "z": 2000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "6b1b45167c418a9c9d61",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Product",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Product Name]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 278,
+     "w": 208,
+     "h": 62,
+     "z": 3000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "3fac8ef095d8da375b4e",
+     "type": "slicer",
+     "title": "Country",
+     "title_shown": null,
+     "header": "Country",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_country]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 280,
+     "w": 101,
+     "h": 62,
+     "z": 0,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "648d2bfdc2b79c6009b2",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Province",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[client_state]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 107,
+     "y": 280,
+     "w": 101,
+     "h": 62,
+     "z": 1000,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "909c0d811ee05aa0de65",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Payment Method",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_paymethod]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 115,
+     "y": 348,
+     "w": 101,
+     "h": 62,
+     "z": 8000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "671976156cc02800600e",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Company",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[companyname]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 350,
+     "w": 101,
+     "h": 62,
+     "z": 7000,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "9dfbef308d9810345138",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "IP Address",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[ip]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 490,
+     "w": 208,
+     "h": 62,
+     "z": 6000,
+     "group": "6faaaf73e445412c1000",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "2e032d309eb6eead56e1",
+     "type": "hundredPercentStackedBarChart",
+     "title": "Monthly or annual? Billing-cycle mix of paid revenue by category",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Series": [
+       "revenue_orders_tbl[billing_cycle]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 244,
+     "y": 593,
+     "w": 620,
+     "h": 399,
+     "z": 2000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "3b1528845ec0ea594206",
+     "type": "hundredPercentStackedBarChart",
+     "title": "How much revenue comes from add-ons? Base vs add-on share by category",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Series": [
+       "revenue_orders_tbl[base_or_addon]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 872,
+     "y": 593,
+     "w": 620,
+     "h": 399,
+     "z": 3000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "d546b4ae25dc3196d493",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Channel",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Sales Channel]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 16,
+     "y": 634,
+     "w": 101,
+     "h": 62,
+     "z": 7000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "69d04dd9a379894f74f5",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client Grp",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[Client Group]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 123,
+     "y": 634,
+     "w": 101,
+     "h": 62,
+     "z": 8000,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "79e3a4729985ad3455a7",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Client ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "Clients[client_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 115,
+     "y": 698,
+     "w": 101,
+     "h": 62,
+     "z": 6000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "b1231af2e244ee90721b",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Order ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[order_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 8,
+     "y": 768,
+     "w": 101,
+     "h": 62,
+     "z": 5000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "e03bff480966d46dbd9c",
+     "type": "slicer",
+     "title": "Date",
+     "title_shown": null,
+     "header": "Invoice ID",
+     "text": null,
+     "roles": {
+      "Values": [
+       "revenue_orders_tbl[invoice_id]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 115,
+     "y": 768,
+     "w": 101,
+     "h": 62,
+     "z": 4000,
+     "group": "3d091980a1cd3703b308",
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {
+    "3d091980a1cd3703b308": "Filters",
+    "6faaaf73e445412c1000": "Filters",
+    "b24c1f9e9ebc329875e3": "Header Bar",
+    "fbd863267c6d80abeba4": "KPIS"
+   }
+  },
+  {
+   "id": "d2a0f5b7b85490eb0eb3",
+   "name": "Guide",
+   "visibility": "HiddenInViewMode",
+   "width": 720,
+   "height": 430,
+   "type": null,
+   "binding": {
+    "type": "Drillthrough",
+    "params": [
+     "Product Guide[Category]",
+     "Product Guide[Sub Category]"
+    ]
+   },
+   "filters": [
+    {
+     "field": "Product Guide[Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "Product Guide[Sub Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    }
+   ],
+   "visuals": [
+    {
+     "id": "ead7fe0360eb01de4d90",
+     "type": "tableEx",
+     "title": null,
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Values": [
+       "Product Guide[Category]",
+       "Product Guide[Sub Category]",
+       "Product Guide[What it includes]"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 720,
+     "h": 424,
+     "z": 0,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "cd734e5d0b707e5472c2",
+     "type": "actionButton",
+     "title": null,
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {},
+     "filters": [],
+     "hidden": false,
+     "x": 656,
+     "y": 0,
+     "w": 64,
+     "h": 32,
+     "z": 1000,
+     "group": null,
+     "drill": true,
+     "action": {
+      "show": "true",
+      "type": "Back"
+     }
+    }
+   ],
+   "groups": {}
+  },
+  {
+   "id": "055cb1e468097899a1d0",
+   "name": "Revenue Tooltip",
+   "visibility": "HiddenInViewMode",
+   "width": 1280,
+   "height": 720,
+   "type": "Tooltip",
+   "binding": {
+    "type": "Tooltip",
+    "params": [
+     "revenue_orders_tbl[Category]",
+     "revenue_orders_tbl[Sub Category]",
+     "revenue_orders_tbl[Product Name]"
+    ]
+   },
+   "filters": [
+    {
+     "field": "revenue_orders_tbl[Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Sub Category]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    },
+    {
+     "field": "revenue_orders_tbl[Product Name]",
+     "type": "Categorical",
+     "how": "Drillthrough"
+    }
+   ],
+   "visuals": [
+    {
+     "id": "b20257e09b6c29e502c8",
+     "type": "pivotTable",
+     "title": null,
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Rows": [
+       "revenue_orders_tbl[Category Hierarchy.Sub Category]",
+       "revenue_orders_tbl[Category Hierarchy.Product Name]"
+      ],
+      "Values": [
+       "Revenue (R) \u2190 Sum(revenue_orders_tbl[invoice_total])",
+       "Orders (#) \u2190 CountNonNull(revenue_orders_tbl[order_id])"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Status_Group]",
+       "type": "Categorical",
+       "how": "User",
+       "condition": "IN {'Paid'}"
+      }
+     ],
+     "hidden": false,
+     "x": 0,
+     "y": 0,
+     "w": 1280,
+     "h": 720,
+     "z": 0,
+     "group": null,
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {}
+  },
+  {
+   "id": "58b168948b0de81ee9b7",
+   "name": "TT - Category",
+   "visibility": "HiddenInViewMode",
+   "width": 480,
+   "height": 300,
+   "type": "Tooltip",
+   "binding": null,
+   "filters": [],
+   "visuals": [
+    {
+     "id": "ca2609a0b542a4e784e7",
+     "type": "cardVisual",
+     "title": null,
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "revenue_orders_tbl[Paid Orders (Products)] (M)",
+       "revenue_orders_tbl[Unpaid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 4,
+     "w": 460,
+     "h": 80,
+     "z": 0,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "5f75b28b55e430d12533",
+     "type": "barChart",
+     "title": "Top products in this category",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Product Name]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [
+      {
+       "field": "revenue_orders_tbl[Product Name]",
+       "type": "TopN",
+       "how": null,
+       "condition": "IN {}"
+      }
+     ],
+     "hidden": false,
+     "x": 10,
+     "y": 90,
+     "w": 460,
+     "h": 204,
+     "z": 1000,
+     "group": null,
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {}
+  },
+  {
+   "id": "a8101c02ae3408a789b9",
+   "name": "TT - Week",
+   "visibility": "HiddenInViewMode",
+   "width": 480,
+   "height": 330,
+   "type": "Tooltip",
+   "binding": null,
+   "filters": [],
+   "visuals": [
+    {
+     "id": "f059ce0e04605c6bd083",
+     "type": "cardVisual",
+     "title": "Paid revenue by category this week",
+     "title_shown": null,
+     "header": null,
+     "text": null,
+     "roles": {
+      "Data": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)",
+       "revenue_orders_tbl[Paid Orders (Products)] (M)",
+       "revenue_orders_tbl[Unpaid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 4,
+     "w": 460,
+     "h": 80,
+     "z": 0,
+     "group": null,
+     "drill": true,
+     "action": null
+    },
+    {
+     "id": "a9446b8ac1d1630158eb",
+     "type": "barChart",
+     "title": "Paid revenue by category this week",
+     "title_shown": "true",
+     "header": null,
+     "text": null,
+     "roles": {
+      "Category": [
+       "revenue_orders_tbl[Category]"
+      ],
+      "Y": [
+       "revenue_orders_tbl[Paid Revenue (Products)] (M)"
+      ]
+     },
+     "filters": [],
+     "hidden": false,
+     "x": 10,
+     "y": 90,
+     "w": 460,
+     "h": 234,
+     "z": 1000,
+     "group": null,
+     "drill": true,
+     "action": null
+    }
+   ],
+   "groups": {}
+  }
+ ],
+ "bookmarks": [
+  {
+   "name": "Bookmark 1",
+   "page": "d2a0f5b7b85490eb0eb3"
+  }
+ ]
+}

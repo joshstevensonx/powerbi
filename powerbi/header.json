@@ -1,0 +1,549 @@
+{
+    "clusterInfo": {
+        "identity": {
+            "identity": "6629500d-552e-4529-9194-9678f8bf6245",
+            "created": 1628872667498,
+            "version": {
+                "major": 21,
+                "minor": 2,
+                "patch": 0,
+                "buildNumber": 0,
+                "qualifier": "202205262146080444-038d6d1b"
+            }
+        },
+        "version": {
+            "version": "21.2.0-202205262146080444-038d6d1b"
+        },
+        "source": [
+            {
+                "name": "INFORMATION_SCHEMA",
+                "type": "INFORMATION_SCHEMA"
+            },
+            {
+                "name": "__logs",
+                "type": "INTERNAL"
+            },
+            {
+                "name": "__support",
+                "type": "INTERNAL"
+            },
+            {
+                "name": "Google Tracking",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Reporting Database",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb03)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb04)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb01)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb02)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "‪Plesk (winsvrweb10)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb12)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb13)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb09)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb08)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb06)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb05)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb07)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb11)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb15)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb14)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Plesk (winsvrweb16)",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Helm",
+                "type": "MSSQL"
+            },
+            {
+                "name": "Domain Middleware",
+                "type": "MYSQL"
+            },
+            {
+                "name": "sys",
+                "type": "SYSFLIGHT"
+            },
+            {
+                "name": "Power BI Files",
+                "type": "S3"
+            },
+            {
+                "name": "elasticsearch",
+                "type": "ELASTIC"
+            },
+            {
+                "name": "Mail Storage",
+                "type": "MYSQL"
+            },
+            {
+                "name": "SQL04",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Whmcs DB",
+                "type": "MYSQL"
+            },
+            {
+                "name": "mailstorage-galera-a",
+                "type": "MYSQL"
+            },
+            {
+                "name": "airbyte-db",
+                "type": "MYSQL"
+            },
+            {
+                "name": "Reporting Storage",
+                "type": "S3"
+            },
+            {
+                "name": "__home",
+                "type": "HOME"
+            },
+            {
+                "name": "__accelerator",
+                "type": "ACCELERATION"
+            },
+            {
+                "name": "__jobResultsStore",
+                "type": "INTERNAL"
+            },
+            {
+                "name": "$scratch",
+                "type": "INTERNAL"
+            },
+            {
+                "name": "__datasetDownload",
+                "type": "INTERNAL"
+            },
+            {
+                "name": "__metadata",
+                "type": "METADATA"
+            },
+            {
+                "name": "fivetran",
+                "type": "MYSQL"
+            }
+        ],
+        "node": [
+            {
+                "name": "dl-executor02.1-grid.com",
+                "role": "executor"
+            },
+            {
+                "name": "dl-executor03.1-grid.com",
+                "role": "executor"
+            },
+            {
+                "name": "dl-executor01.1-grid.com",
+                "role": "executor"
+            },
+            {
+                "name": "dl-coordinator01.1-grid.com",
+                "role": "coordinator"
+            }
+        ],
+        "javaVmVersion": "25.302-b08",
+        "jreVersion": "1.8",
+        "edition": "community"
+    },
+    "submission": {
+        "first": "Joshua",
+        "last": "Stevenson",
+        "email": "Joshua.Stevenson@1-grid.com",
+        "date": 1790667746260,
+        "submissionId": "2f3f84b7-ba47-4667-b3a7-08596768c1fc"
+    },
+    "job": {
+        "state": 3,
+        "info": {
+            "jobId": {
+                "id": "154496a3-7f51-0a28-9054-bdd742a60a00"
+            },
+            "sql": "select \"order_id\",\r\n    \"ordernum\",\r\n    \"userid\",\r\n    \"contactid\",\r\n    \"date\",\r\n    \"amount\",\r\n    \"paymentmethod\",\r\n    \"invoiceid\",\r\n    \"status\",\r\n    \"ipaddress\",\r\n    \"date\" as \"C1\",\r\n    \"date\" as \"C2\"\r\nfrom \"Power BI Reports.Data analytics.Daily sales (beta)\".\"tblorders\"",
+            "requestType": 7,
+            "user": "powerreports",
+            "startTime": 1790667100942,
+            "finishTime": 1790667101710,
+            "datasetPath": [
+                "UNKNOWN"
+            ],
+            "datasetVersion": "UNKNOWN",
+            "parents": [
+                {
+                    "datasetPath": [
+                        "Power BI Reports",
+                        "Data analytics",
+                        "Daily sales (beta)",
+                        "tblorders"
+                    ],
+                    "type": 1
+                }
+            ],
+            "queryType": 6,
+            "fieldOrigins": [
+                {
+                    "name": "order_id",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "id",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "ordernum",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "ordernum",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "userid",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "userid",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "contactid",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "contactid",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "date",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "date",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "amount",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "amount",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "paymentmethod",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "paymentmethod",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "invoiceid",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "invoiceid",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "status",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "status",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "ipaddress",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "ipaddress",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "C1",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "date",
+                            "derived": false
+                        }
+                    ]
+                },
+                {
+                    "name": "C2",
+                    "origins": [
+                        {
+                            "table": [
+                                "Whmcs DB",
+                                "whmcsliv_live",
+                                "tblorders"
+                            ],
+                            "columnName": "date",
+                            "derived": false
+                        }
+                    ]
+                }
+            ],
+            "grandParents": [
+                {
+                    "datasetPath": [
+                        "Whmcs DB",
+                        "whmcsliv_live",
+                        "tblorders"
+                    ],
+                    "level": 2
+                }
+            ],
+            "description": "select \"order_id\",\r\n    \"ordernum\",\r\n    \"userid\",\r\n    \"contactid\",\r\n    \"date\",\r\n    \"amount\",\r\n    \"paymentmethod\",\r\n    \"invoiceid\",\r\n    \"status\",\r\n    \"ipaddress\",\r\n    \"date\" as \"C1\",\r\n    \"date\" as \"C2\"\r\nfrom \"Power BI Reports.Data analytics.Daily sales (beta)\".\"tblorders\"",
+            "originalCost": 8.72124926489898E10,
+            "scanPaths": [
+                {
+                    "path": [
+                        "Whmcs DB",
+                        "whmcsliv_live",
+                        "tblorders"
+                    ]
+                }
+            ],
+            "joinAnalysis": {
+                "joinTables": [
+                    {
+                        "tableId": 0,
+                        "tableSchemaPath": [
+                            "Whmcs DB",
+                            "whmcsliv_live",
+                            "tblorders"
+                        ]
+                    }
+                ]
+            },
+            "resourceSchedulingInfo": {
+                "queueName": "SMALL",
+                "queueId": "SMALL",
+                "resourceSchedulingStart": 1790667100974,
+                "resourceSchedulingEnd": 1790667100978,
+                "queryCost": 749575.0,
+                "engineName": ""
+            },
+            "outputTable": [
+                "__jobResultsStore",
+                "154496a3-7f51-0a28-9054-bdd742a60a00"
+            ],
+            "batchSchema": "EAAAAAAACgAMAAAACAAEAAoAAAAIAAAACAAAAAAAAAAMAAAAqAIAAFgCAAAcAgAA3AEAAJwBAABYAQAAGAEAANgAAACkAAAAbAAAADgAAAAEAAAAmv3//xQAAAAUAAAAFAAAAAAACgEUAAAAAAAAAAAAAACC/v//AAABAAIAAABDMgAAyv3//xQAAAAUAAAAFAAAAAAACgEUAAAAAAAAAAAAAACy/v//AAABAAIAAABDMQAA+v3//xQAAAAUAAAAFAAAAAAABQEQAAAAAAAAAAAAAABg////CQAAAGlwYWRkcmVzcwAAAC7+//8UAAAAFAAAABQAAAAAAAUBEAAAAAAAAAAAAAAAlP///wYAAABzdGF0dXMAAF7+//8UAAAAFAAAABQAAAAAAAIBGAAAAAAAAAAAAAAATP7//wAAAAFAAAAACQAAAGludm9pY2VpZAAAAJr+//8UAAAAFAAAABgAAAAAAAUBFAAAAAAAAAAAAAAABAAEAAQAAAANAAAAcGF5bWVudG1ldGhvZAAAANb+//8UAAAAFAAAABwAAAAAAAcBIAAAAAAAAAAAAAAACAAMAAgABAAIAAAAAgAAABAAAAAGAAAAYW1vdW50AAAW////FAAAABQAAAAcAAAAAAAKARwAAAAAAAAAAAAAAAAABgAIAAYABgAAAAAAAQAEAAAAZGF0ZQAAAABS////FAAAABQAAAAUAAAAAAACARgAAAAAAAAAAAAAAED///8AAAABIAAAAAkAAABjb250YWN0aWQAAACO////FAAAABQAAAAUAAAAAAACARgAAAAAAAAAAAAAAHz///8AAAABIAAAAAYAAAB1c2VyaWQAAMb///8UAAAAFAAAABQAAAAAAAIBGAAAAAAAAAAAAAAAtP///wAAAAFAAAAACAAAAG9yZGVybnVtAAASABgAFAATABIADAAAAAgABAASAAAAFAAAABQAAAAcAAAAAAACASAAAAAAAAAAAAAAAAgADAAIAAcACAAAAAAAAAEgAAAACAAAAG9yZGVyX2lkAAAAAA==",
+            "commandPoolWaitMillis": 0,
+            "nodeDetails": [
+                {
+                    "hostName": "dl-executor02.1-grid.com",
+                    "hostIp": "dl-executor02.1-grid.com",
+                    "fabricPort": 45678,
+                    "maxMemoryUsedKb": 5524
+                }
+            ],
+            "executionCpuTimeNs": 173089786,
+            "setupTimeNs": 29875054,
+            "waitTimeNs": 639804,
+            "memoryAllocated": 5000000
+        },
+        "stats": {
+            "inputBytes": 2167635,
+            "outputBytes": 2167635,
+            "inputRecords": 19543,
+            "outputRecords": 19543,
+            "isOutputLimited": false
+        },
+        "details": {
+            "timeSpentInPlanning": 35,
+            "waitInClient": 0,
+            "dataVolume": 2167635,
+            "outputRecords": 19543,
+            "peakMemory": 5524288,
+            "topOperations": [
+                {
+                    "type": 7,
+                    "timeConsumed": 96.039604
+                },
+                {
+                    "type": 13,
+                    "timeConsumed": 2.4752476
+                },
+                {
+                    "type": 5,
+                    "timeConsumed": 0.990099
+                },
+                {
+                    "type": 1,
+                    "timeConsumed": 0.4950495
+                }
+            ],
+            "totalMemory": 5524288,
+            "cpuUsed": 202
+        },
+        "attemptId": "154496a3-7f51-0a28-9054-bdd742a60a00",
+        "endpoint": {
+            "address": "dl-coordinator01.1-grid.com",
+            "userPort": 31010,
+            "fabricPort": 45678,
+            "roles": {
+                "sqlQuery": true,
+                "javaExecutor": false,
+                "master": true
+            },
+            "startTime": 1790425087666,
+            "maxDirectMemory": 25769803776,
+            "availableCores": 8,
+            "nodeTag": "",
+            "conduitPort": 46700,
+            "dremioVersion": "21.2.0-202205262146080444-038d6d1b"
+        },
+        "accelerationDetails": "",
+        "stateList": [
+            {
+                "state": 1,
+                "startTime": 1790667100942
+            },
+            {
+                "state": 2,
+                "startTime": 1790667100942
+            },
+            {
+                "state": 3,
+                "startTime": 1790667100946
+            },
+            {
+                "state": 4,
+                "startTime": 1790667100974
+            },
+            {
+                "state": 6,
+                "startTime": 1790667100978
+            },
+            {
+                "state": 7,
+                "startTime": 1790667100979
+            },
+            {
+                "state": 8,
+                "startTime": 1790667100989
+            },
+            {
+                "state": 9,
+                "startTime": 1790667101710
+            }
+        ]
+    },
+    "dremioVersion": "21.2.0-202205262146080444-038d6d1b"
+}

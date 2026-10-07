@@ -1,0 +1,149 @@
+﻿product_type,service_group,service_type
+Unmapped,1-grid Server Backup,1-grid Server Backup
+Application Hosting,Business Email,Business-in-a-box - Email Lite
+Application Hosting,Business Email,Email Basic
+Application Hosting,Business Email,Email Pro
+Infrastructure Hosting,Business VPS Hosting,Business VPS: Large
+Infrastructure Hosting,Business VPS Hosting,Business VPS: Medium
+Infrastructure Hosting,Business VPS Hosting,Business VPS: Small
+Infrastructure Hosting,Business VPS Hosting,Business VPS: X Large
+Company Registration,Company Registration,Company Registration
+Infrastructure Hosting,Dedicated IP Addresses,Dedicated IP Address
+Infrastructure Hosting,Dedicated Servers,Enterprise Server
+Infrastructure Hosting,Dedicated Servers,Enterprise Server+
+Infrastructure Hosting,Dedicated Servers,Managed
+Infrastructure Hosting,Dedicated Servers,Managed+
+Infrastructure Hosting,Dedicated Servers,Server
+Infrastructure Hosting,Dedicated Servers,Server+
+Web Services,Do it For Me - Website Design,Do It For Me - Website Design (DIFM Basic)
+Web Services,Do it For Me - Website Design,Do It For Me - Website Design (DIFM Premium)
+Web Services,Do it For Me - Website Design,Do It For Me - Website Design (DIFM Standard)
+Web Services,Do it For Me - Website Design,Do It For Me - Website Design old one
+Web Services,Do it For Me - Website Design,Website Migration Once-off
+Unmapped,Domain Addition,Linux Hosting: Medium
+Unmapped,Domain Addition,Website Builder: Medium
+Unmapped,Domain Addition,Website Builder: Small
+Domain,Domains,africa
+Domain,Domains,ai
+Domain,Domains,au
+Domain,Domains,biz
+Domain,Domains,capetown
+Domain,Domains,ch
+Domain,Domains,club
+Domain,Domains,co
+Domain,Domains,co.com
+Domain,Domains,co.uk
+Domain,Domains,co.za
+Domain,Domains,coach
+Domain,Domains,com
+Domain,Domains,de
+Domain,Domains,dev
+Domain,Domains,diamonds
+Domain,Domains,directory
+Domain,Domains,durban
+Domain,Domains,es
+Domain,Domains,estate
+Domain,Domains,eu
+Domain,Domains,expert
+Domain,Domains,global
+Domain,Domains,guru
+Domain,Domains,ie
+Domain,Domains,info
+Domain,Domains,io
+Domain,Domains,joburg
+Domain,Domains,life
+Domain,Domains,live
+Domain,Domains,ltd
+Domain,Domains,me
+Domain,Domains,mobi
+Domain,Domains,net
+Domain,Domains,net.za
+Domain,Domains,nl
+Domain,Domains,online
+Domain,Domains,org
+Domain,Domains,org.za
+Domain,Domains,photography
+Domain,Domains,shop
+Domain,Domains,site
+Domain,Domains,solutions
+Domain,Domains,space
+Domain,Domains,store
+Domain,Domains,systems
+Domain,Domains,tech
+Domain,Domains,travel
+Domain,Domains,tv
+Domain,Domains,uk
+Domain,Domains,us
+Domain,Domains,ventures
+Domain,Domains,vip
+Domain,Domains,web.za
+Domain,Domains,work
+Domain,Domains,xyz
+Web Services,Other,cWatch - Pro
+Web Services,Other,Domain Essentials - CP (Including ID Privacy)
+Web Services,Other,Domain Essentials (Including ID Privacy)
+Application Hosting,Reseller Hosting,Reseller (cPanel): Large
+Application Hosting,Reseller Hosting,Reseller (cPanel): Medium
+Application Hosting,Reseller Hosting,Reseller (cPanel): Small
+Application Hosting,Reseller Hosting,Reseller (Linux Plesk): Large
+Application Hosting,Reseller Hosting,Reseller (Linux Plesk): Medium
+Application Hosting,Reseller Hosting,Reseller (Linux Plesk): Small
+Application Hosting,Reseller Hosting,Reseller (Windows Plesk): Medium
+Application Hosting,Reseller Hosting,Reseller (Windows Plesk): Small
+Application Hosting,Reseller Hosting,Reseller (Windows Plesk): X Large
+Web Services,SSL Certificates,Positive SSL Certificate (DV)
+Web Services,SSL Certificates,Positive SSL Extended Validation Certificate (EV)
+Web Services,SSL Certificates,Positive SSL Multi-Domain Certificate
+Web Services,SSL Certificates,Positive SSL Wildcard Certificate (DV)
+Web Services,SSL Certificates,Thawte SSL123 Certificates
+Web Services,SSL Certificates,Thawte SSLWebserver EV
+Web Services,SSL Certificates,Thawte Wildcard SSL Certificate
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Linux): Large
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Linux): Medium
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Linux): Small
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Windows): Large
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Windows): Medium
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Windows): Small
+Infrastructure Hosting,Virtual Private Servers,Hyper-V VPS (Windows): X Large
+Infrastructure Hosting,Virtual Private Servers,KVM VPS: Large
+Infrastructure Hosting,Virtual Private Servers,KVM VPS: Medium
+Infrastructure Hosting,Virtual Private Servers,KVM VPS: Small
+Application Hosting,Web Hosting,DISCONTINUED - Linux Hosting: X Large
+Application Hosting,Web Hosting,DISCONTINUED - Linux Hosting: XX Large
+Application Hosting,Web Hosting,Domain Parking
+Application Hosting,Web Hosting,Domain Parking (WSP)
+Application Hosting,Web Hosting,Domain Parking: Website Builder
+Application Hosting,Web Hosting,Linux Hosting: Domain Parking
+Application Hosting,Web Hosting,Linux Hosting: Large
+Application Hosting,Web Hosting,Linux Hosting: Medium
+Application Hosting,Web Hosting,Linux Hosting: Small
+Application Hosting,Web Hosting,Linux Hosting: X Small
+Application Hosting,Web Hosting,Parked - Email DNS Only
+Application Hosting,Web Hosting,Plesk Linux Hosting: Large
+Application Hosting,Web Hosting,Plesk Linux Hosting: Litespeed Small
+Application Hosting,Web Hosting,Plesk Linux Hosting: Medium
+Application Hosting,Web Hosting,Plesk Linux Hosting: Small
+Application Hosting,Web Hosting,Plesk Linux Hosting: XLarge
+Application Hosting,Web Hosting,Plesk Linux Hosting: XX Large
+Application Hosting,Web Hosting,Plesk Linux Hosting: XXX Large
+Application Hosting,Web Hosting,Plesk Parked: DNS Only
+Application Hosting,Web Hosting,Plesk Parked: Small
+Application Hosting,Web Hosting,Windows Plesk: 5XLarge
+Application Hosting,Web Hosting,Windows Plesk: Large
+Application Hosting,Web Hosting,Windows Plesk: Medium
+Application Hosting,Web Hosting,Windows Plesk: Small
+Application Hosting,Web Hosting,Windows Plesk: X Large
+Application Hosting,Web Hosting,Windows Plesk: XX Large
+Application Hosting,Web Hosting,Windows Plesk: XXXX Large
+Application Hosting,Website Builder,Website Builder - Company Registration
+Application Hosting,Website Builder,Website Builder: Basic
+Application Hosting,Website Builder,Website Builder: Premium
+Application Hosting,Website Builder,Website Builder: Standard
+Unmapped,Website Design,WB Website Design : Medium
+Unmapped,Website Design,WB Website Design : Small
+Unmapped,Website Design,Website Design: Medium
+Unmapped,Website Design,Website Design: Small
+Unmapped,Website Rank,Website Rank: Small
+Application Hosting,WordPress Hosting,WordPress Hosting - Large
+Application Hosting,WordPress Hosting,WordPress Hosting - Medium
+Application Hosting,WordPress Hosting,WordPress Hosting - Small

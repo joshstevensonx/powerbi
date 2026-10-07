@@ -1,0 +1,1479 @@
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+Daily Sales v2.0 – Report Redesign Handoff
+  ​Oct 2, 2026        · ​@Josh Stevenson
+
+
+Summary
+Three new pages are built in the Daily Sales (v2.0) report and the 1-grid brand theme is
+applied, but the layout redesign is only part-done and nothing is saved yet. The report is
+mid-edit in the Power BI service (Fabric, BigQuery Reports workspace). Review it before
+clicking Save, or close it without saving to discard everything.
+
+     Asked for: new pages from the "Duplicate of PRODUCT SALES | Overview" template;
+     brand colours and fonts; reformatted KPI cards; custom tooltips; less visual noise; a
+     redesigned template that keeps every filter field; and slicers that filter every visual.
+     Done: three pages, brand theme, slicer audit, one fix so every slicer reaches the trend
+     chart, and removal of a stray hidden chart.
+     Interrupted mid-step: moving the slicers into a left-hand filter rail on SALES TRENDS.
+     A few slicers are already resized but not yet moved, so that page's filter rows look
+     broken until the step is finished or undone.
+     Not started: tooltip pages, KPI card restyle, copying the new layout to the other pages.
+
+Inputs: the brand booklet (1-grid brand booklet v2), the report design instructions
+(powerbi_report_design_instructions.md), the old Daily sales (beta) report, and two
+design-inspiration links (mokkup.ai, coupler.io).
+
+
+Context
+The report is the 1-grid daily sales report on WHMCS billing data. 1-grid is a South African
+web hosting provider; Nexora Web Agency (Josh) is building the report for it.
+
+     Report: Daily Sales (v2.0), in the Fabric workspace "BigQuery Reports". It is edited in
+     the Power BI service; no Desktop file is involved.
+     Semantic model: Daily sales (Model) v2.0. Data comes from WHMCS (MySQL) through
+     Dremio 21.2, via the on-premises gateway "BI Gateway Office" (server 1G-WPDN-
+     POWERBI). Import mode, scheduled refresh. Header shows "Data updated 02/10/26".
+     Audience (from the design instructions):
+           Executives: is revenue on track?
+           Sales and marketing: which products, customers and channels drive revenue?
+           Finance: what is unpaid, cancelled or pending?
+           BI team: do the numbers reconcile to WHMCS?
+
+
+
+                                                                                        Page 1 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+     Data window: order and invoice fields start about Jul 2025. A report-level filter limits
+     Date (format) to 03/10/2025 – 02/10/2026, plus a Year filter. Every page also filters
+     Status_Group (All) and invoice_total > 0 ; the second is listed twice.
+     Currency and VAT: rand (R). Invoice-based measures include 15% VAT.
+
+What was asked, in order:
+
+ 1. Build new pages from the "Duplicate of PRODUCT SALES | Overview" template,
+    focused on data value, insights and design principles, and informed by how the data is
+    already used. Josh chose Sales Trends, Customer Insights and Product Mix, and asked
+     to leave the report unsaved for review.
+ 2. Follow the uploaded report design instructions.
+ 3. Bring in anything of value from the old Daily sales (beta) report.
+ 4. Reformat the pages:
+           use the brand palette and reformat the cards;
+           apply dashboard design best practice, add custom tooltips and cut visual noise;
+           redesign the template if useful, but keep every filter field.
+ 5. Make sure filters work on every visual.
+ 6. Use the two design-inspiration links.
+
+
+Data model
+The new pages rely on one rule: filters flow into revenue_orders_tbl from every side and
+never back out. So every visual on the new pages uses its measures.
+
+
+
+
+data model · 6 tables, filter direction
+
+
+
+
+                                                                                        Page 2 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Table                                      One row per          Used for                    Key measures
+                                                                                              (existing)
+
+  orders_invoices_tbl                        Order (with its      Headline totals and         Paid Invoice
+                                             invoice fields)      trends, per the design      Revenue (the
+                                                                  instructions                instructions call it
+                                                                                              "Paid Invoice
+                                                                                              Total"), Paid
+                                                                                              Orders
+
+  revenue_orders_tbl                         Service on an        Product, category,          Paid Revenue
+  (calculated)                               order, plus one      customer and location       (Products), Paid
+                                             row per order        splits; all new visuals     Orders
+                                             missing from                                     (Products),
+                                             Combined                                         Unpaid Revenue
+                                             Revenue ("Not in                                 (Products),
+                                             Combined                                         Unpaid Orders
+                                             Revenue")                                        (Products),
+                                                                                              Unpaid /
+                                                                                              Cancelled Invoice
+                                                                                              Total, RO Invoice
+                                                                                              Total, Paid Invoice
+                                                                                              Total
+
+  Combined Revenue                           Service line         Source for                  Rev, Count large
+                                             (legacy fact, 2021   revenue_orders_tbl;         order
+                                             on)                  legacy pages
+
+  Calendar                                   Date                 Date slicers and time       —
+                                                                  axes
+
+  Clients                                    Client               Client attributes, also     Client count by
+                                                                  copied into                 Group, Client ID
+                                                                  revenue_orders_tbl          count
+
+  Product Guide                              Product              Category › Sub Category ›   —
+                                                                  Product mapping (Guide
+                                                                  page)
+
+  Level Of Detail                            Parameter            Field parameter for level   —
+                                                                  of detail
+
+
+Rules from the design instructions that still apply:
+
+     Never sum invoice_total on revenue_orders_tbl; it repeats on every service row.
+      total_rev is list price excl. VAT, not invoice revenue.
+
+
+
+
+                                                                                                             Page 3 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+      Order counts by product double-count by design, so never stack them into a total.
+      Paid orders exclude R0 invoices.
+
+
+Report inventory
+The report has 13 pages. Pages 11–13 are new. The brand theme recoloured every page; no
+other existing page was edited.
+
+
+  #           Page                           Visible   What it is                 Changed this session
+
+  1           PRODUCT SALES |                Yes       Original product page:     Theme only
+              Overview                                 17 slicers, 4 KPI cards,
+                                                       Category › Product
+                                                       matrix (Revenue R,
+                                                       Revenue %, Orders #,
+                                                       Orders %)
+
+  2           Daily Overview                 Yes       Daily sales: 8 slicers,    Theme only
+                                                       KPI cards, two chart
+                                                       areas that were blank
+                                                       when viewed,
+                                                       category table
+
+  3           Guide                          Yes       Category / Sub             Theme only
+                                                       Category / "What it
+                                                       includes" table from
+                                                       Product Guide
+
+  4           Revenue Tooltip                Hidden    Existing tooltip page;     Theme only
+                                                       not inspected
+
+  5           Template                       Hidden    Layout template            Theme only
+
+  6           Troubleshooting                Hidden    Not inspected              Theme only
+
+  7           Template                       Yes       Second template; not       Theme only
+                                                       inspected
+
+  8           Duplicate of Template          Yes       Not inspected              Theme only
+
+  9           Page 1                         Yes       Not inspected              Theme only
+
+  10          Duplicate of PRODUCT           Yes       The template used for      Theme only
+              SALES | Overview                         the new pages (copy
+                                                       of page 1)
+
+
+
+
+                                                                                                  Page 4 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  #           Page                                Visible      What it is                 Changed this session
+
+  11          SALES TRENDS |                      Yes          New: revenue trend,        New page; partial
+              Overview                                         category mix, invoice      redesign (see
+                                                               status                     Redesign in progress)
+
+  12          CUSTOMER INSIGHTS |                 Yes          New: new vs existing,      New page
+              Overview                                         tenure, province,
+                                                               channel, sign-up
+
+  13          PRODUCT MIX |                       Yes          New: treemap, top 10       New page
+              Overview                                         products, billing cycle,
+                                                               add-ons
+
+
+Pages 7–9 look like work-in-progress copies. Consider hiding or deleting them before the
+report is shared.
+
+
+Template anatomy (original layout)
+The template is a 1500 × 900 px page (Custom size, top-aligned) built from four groups
+and loose shapes. The positions below are the originals, so the redesign can be reversed
+or repeated. Values are px: height · width · x · y.
+
+
+  Group                        Item                         Original h · w · x · y   Notes
+  (Selection
+  pane)
+
+  Header Bar                   Header (shape)               100 · 1500 · 0 · 0       White band
+
+  Header Bar                   Title (text box)             80 · 1008 · 8 · 10       "PRODUCT SALES |
+                                                                                     Overview", cyan; on the
+                                                                                     new pages the first words
+                                                                                     were changed
+
+  Header Bar                   Logo (image)                 80 · 184 · 1312 · 10     1-grid colour logo
+
+  Filters (row 1)              Date range slicer,           90 · 180 · 5 · 105       Calendar Date (format)
+                               between
+
+  Filters (row 1)              Relative date slicer         90 · 260 · 185 · 105     Last N Days; set to 1 on the
+                                                                                     template, 90 on the new
+                                                                                     pages
+
+
+
+
+                                                                                                            Page 5 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Group                        Item                   Original h · w · x · y   Notes
+  (Selection
+  pane)
+
+  Filters (row 1)              Product Category,      90 · 150 · x 445, 595,   Dropdown slicers
+                               Sub-category,          745, 895, 1045, 1195,
+                               Product, Invoice ID,   1345 · 105
+                               Order ID, Client ID,
+                               Payment Method
+
+  Filters (row 1)              Filter (shape)         100 · 1500 · 0 · 100     Row background with cyan
+                                                                               outline
+
+  Filters (row                 Billing Cycle          90 · 175 · 5 · 205       Dropdown
+  2)
+
+  Filters (row                 Country, Province,     90 · 164 · x 180, 344,   Dropdowns
+  2)                           Domain, Discovery      508, 673, 837, 1001,
+                               Method, Service        1166, 1330 · 205
+                               Status, Customer
+                               Age, IP Address,
+                               Company
+
+  Filters (row                 KPI (shape)            100 · 1500 · 0 · 200     Row background
+  2)
+
+  KPIS                         Paid (card)            inside band at y ≈       New card visual: Paid
+                                                      300                      Revenue (Products)
+                                                                               labelled "Total Revenue",
+                                                                               Paid Orders (Products)
+                                                                               labelled "Total Orders"
+
+  KPIS                         Unpaid & Cancelled     inside band              Two values, same layout as
+                               (card)                                          Paid; measures not
+                                                                               inspected
+
+  KPIS                         Customer Type          inside band              Same two measures split by
+                               (card)                                          type_of_customer: Existing
+                                                                               Customer, New Customer
+
+  KPIS                         KPI (shape)            89 · 1496 · 0 · 300      Band background
+
+  (loose)                      Matrix                 512 · 1500 · 0 · 385     Category › Product Name
+                                                                               rows; Revenue (R),
+                                                                               Revenue (%), Orders (#),
+                                                                               Orders (%). Removed on
+                                                                               the new pages
+
+
+
+
+                                                                                                      Page 6 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Group                        Item                        Original h · w · x · y       Notes
+  (Selection
+  pane)
+
+  (loose)                      Grid 1–4 (shapes)           Grid 1: 200 · 745 · 0 ·      Panel backgrounds. On the
+                                                           390; Grid 3: 294 ·           new pages all four are 250 ·
+                                                           742 · 0 · 600; Grid 4:       745 at (0, 390), (755, 390),
+                                                           296 · 742 · 742 · 600        (0, 650) and (755, 650)
+
+
+Other template details:
+
+     Page-level filters: Status_Group is (All); invoice_total is greater than 0 (listed twice).
+     The report-level filters are Date (format) and Year.
+     Selection-pane names: every slicer is called "Date" except Country, a copy-paste
+     leftover. Find them by position, not name.
+     Sync slicers: for the relative date slicer, the Sync box is unticked on every page, and
+     Visible is ticked only for Daily Overview and the page itself. Changing it on one page
+     therefore doesn't move it elsewhere. Worth confirming that Daily Overview still shows
+     Last 1 Days. The other slicers weren't checked.
+
+
+Pages built
+All three pages are copies of the template. Each keeps the header, all 17 slicers and the
+KPI band; the old category matrix was removed. The relative date slicer on each new page
+is set to Last 90 Days. It isn't synced with other pages, so they are unaffected. Pages 11–13
+are new; the report has 13 pages in total.
+
+
+  Page                               Visual (title as         Type                   Fields / measures
+                                     shown)
+
+  SALES TRENDS |                     Is paid revenue          Line +                 Calendar[WeekDate]; Paid
+  Overview                           growing? Weekly          clustered              Revenue (Products) bars; Paid
+                                     paid revenue incl.       column                 Orders (Products) line
+                                     VAT (bars) vs paid
+                                     orders (line)
+
+  SALES TRENDS |                     Which categories         Clustered              Category; Paid Revenue
+  Overview                           earn the revenue?        bar, data              (Products)
+                                                              labels
+
+  SALES TRENDS |                     How is the category      Stacked                WeekDate; Paid Revenue
+  Overview                           mix shifting?            column                 (Products); legend Category
+
+
+
+
+                                                                                                               Page 7 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Page                               Visual (title as      Type               Fields / measures
+                                     shown)
+
+  SALES TRENDS |                     Is invoiced value     Stacked            WeekDate; RO Invoice Total;
+  Overview                           being collected?      column             legend invoice_status (Paid
+                                                                              cyan, Unpaid amber, Cancelled
+                                                                              red — these colours need re-
+                                                                              checking after the theme
+                                                                              change, see Remaining work)
+
+  CUSTOMER                           Is the new-customer   100%               WeekDate; Paid Revenue
+  INSIGHTS |                         share of paid         stacked            (Products); legend
+  Overview                           revenue growing?      column             type_of_customer
+                                     (weekly)
+
+  CUSTOMER                           What do new vs        Clustered bar      Category; Paid Revenue
+  INSIGHTS |                         existing customers                       (Products); legend
+  Overview                           buy?                                     type_of_customer
+
+  CUSTOMER                           How established are   Bar, data          customer_tenure_group; Paid
+  INSIGHTS |                         buyers?               labels             Revenue (Products)
+  Overview
+
+  CUSTOMER                           Where are buyers?     Bar, data          client_state; Paid Revenue
+  INSIGHTS |                                               labels             (Products)
+  Overview
+
+  CUSTOMER                           Which marketing       Bar, data          heard_about_us; Paid Revenue
+  INSIGHTS |                         sources bring         labels             (Products)
+  Overview                           revenue?
+
+  CUSTOMER                           Online or agent?      Bar, data          signup_agent; Paid Revenue
+  INSIGHTS |                                               labels             (Products)
+  Overview
+
+  PRODUCT MIX |                      Where does revenue    Treemap            Category › Sub Category; Paid
+  Overview                           come from?                               Revenue (Products)
+
+  PRODUCT MIX |                      Which products earn   Bar, Top N =       Product Name; Paid Revenue
+  Overview                           the most? Top 10      10 visual filter   (Products)
+
+  PRODUCT MIX |                      Monthly or annual?    100%               Category; Paid Revenue
+  Overview                                                 stacked bar        (Products); legend
+                                                                              billing_cycle
+
+
+
+
+                                                                                                       Page 8 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Page                               Visual (title as    Type             Fields / measures
+                                     shown)
+
+  PRODUCT MIX |                      How much revenue    100%             Category; Paid Revenue
+  Overview                           comes from add-     stacked bar      (Products); legend
+                                     ons?                                 base_or_addon (add-on cyan,
+                                                                          base dark grey, blank light
+                                                                          grey)
+
+
+No measures were added to the semantic model. Every content visual uses existing
+ revenue_orders_tbl measures.
+
+
+
+Insights the pages surface
+These figures were read off the new pages for the last 90 days (5 Jul – 2 Oct 2026). They
+are a starting point for page titles and commentary, not checked results.
+
+
+  Area                     What the page shows              Figure seen
+
+  Headline                 Paid revenue and orders, 90      R518.6K paid, about 2K paid orders
+                           days
+
+  Headline                 Unpaid and cancelled, 90 days    R152.8K, 496 orders (about 23% of invoiced
+                                                            value)
+
+  Customers                Existing vs new customer         Existing R443.3K (2K orders); New R75.3K
+                           revenue                          (471 orders), so new customers are about
+                                                            15% of revenue
+
+  Categories               Largest categories by paid       Domains about R199K, Infrastructure
+                           revenue                          Hosting about R110K, Unmapped about
+                                                            R77K, Application Hosting about R75K,
+                                                            Security & Backup about R47K, Web
+                                                            Services about R19K, Business Services
+                                                            about R5K
+
+  Products                 Top products                     .co.za Domain about R103K; "Not in
+                                                            Combined Revenue" about R77K; .com
+                                                            Domain about R50K; Dedicated Server
+                                                            about R45K; Positive SSL about R33K
+
+  Data gap                 Revenue with no product          About R77K (roughly 15%) sits in Unmapped
+                           mapping                          / Not in Combined Revenue
+
+
+
+
+                                                                                                  Page 9 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Area                     What the page shows                   Figure seen
+
+  Billing                  Billing cycle mix                     Infrastructure Hosting is mostly monthly;
+                                                                 Domains and Security are annual;
+                                                                 Application Hosting is mixed
+
+  Add-ons                  Add-on share of revenue               Close to zero in every category; most rows
+                                                                 are base or blank
+
+  Channel                  Sign-up channel                       Online about R0.36M; Agent about R0.08M;
+                                                                 (Blank) about R0.08M
+
+  Marketing                How customers heard about 1-          "Did not say" is by far the largest answer
+                           grid                                  (about R0.36M), which limits attribution
+
+  Location                 Province                              Gauteng leads (about R0.24M), then
+                                                                 Western Cape and Eastern Cape
+
+  Tenure                   Account age at order                  10+ year customers bring the most revenue
+                                                                 (about R0.26M)
+
+  Trend                    Weekly paid revenue                   Roughly R30–60K a week; a peak around
+                                                                 mid-August
+
+  Collections              Weekly invoice status                 Unpaid value grows in the most recent
+                                                                 weeks, as expected for invoices not yet due
+
+
+The weekly figures are read from the charts. Rerun them before quoting.
+
+
+Brand theme
+A custom theme named 1-grid Brand replaced the report's previous custom theme
+("theme created by p…"). A theme applies to the whole report, so the original pages
+change colour too. Use View › Theme › theme format pane › Theme settings › … › Import /
+Export to manage it. The previous theme was not exported, so closing without saving is
+the only way to get it back.
+
+
+  Role                                       Colour                                     Source
+
+  Primary (data colour 1)                    #00C1DE cyan                               Booklet p.9, Pantone
+                                                                                        311C
+
+  Data colour 2 / text                       #55565A cool grey                          Pantone Cool Grey 11
+
+  Data colour 3 / good                       #00C18B green                              Pantone 3395C
+
+  Body text                                  #231F20 black                              Booklet black
+
+
+
+
+                                                                                                         Page 10 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Role                                         Colour                                       Source
+
+  Tints (data colours 4–8)                     #7FDFEE, #A7A8AB, #7FE0C5,                   Derived tints and
+                                               #007E91, #00845F                             shades
+
+  Neutral / pending (data                      #F2A900 amber                                Added for unpaid
+  colour 11)                                                                                status
+
+  Bad (data colour 12)                         #E5484D red                                  Added for cancelled
+                                                                                            status
+
+
+     Fonts: the booklet's fonts (PF DIN Text Pro, Open Sans) aren't available in Power BI. A
+     theme value of "DIN" rendered as a serif fallback. The theme uses full Segoe UI font
+     stacks instead (e.g. 'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica,
+     arial, sans-serif ). A bare font name has no fallback and renders as serif on Macs.
+
+     Chart styling in the theme: white background, 1 px #E3E5E8 border, 8 px corner radius,
+     no shadow, axis titles off, dotted light gridlines, legend at the top without a title, 8–9 pt
+     grey labels.
+     Not in the theme: page background. The plan is to set #F4F6F8 on the new pages only,
+     so the original pages keep a white background.
+     The theme JSON is in the session workspace as 1grid_brand_theme.json . Ask for it
+     to be sent as a file if you want to keep it.
+
+
+Brand guidelines summary
+The 16-page 1-grid brand booklet (v2) sets a cyan-and-grey identity with a green accent.
+Below is what it means for the report.
+
+
+  Topic                                Booklet rule                             Report implication
+
+  Logo                                 "1" and dash in cyan, "grid" in grey,    Keep the existing logo image at
+                                       "GET ONLINE WITH US" tagline.            its aspect ratio (184 : 80). The
+                                       Never stretch, rotate, shadow, re-       planned 110 × 48 keeps it. Keep
+                                       space or change proportions.             the header white.
+                                       Colour logo is not for dark
+                                       backgrounds; use the all-white
+                                       version there.
+
+  Logo variants                        On cyan: white "1-" with grey            If the header ever turns cyan, use
+                                       "grid". On light grey: full colour. On   the white-and-grey version
+                                       black: all white.
+
+
+
+
+                                                                                                            Page 11 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Topic                                Booklet rule                          Report implication
+
+  Primary font                         PF DIN Text Pro (Thin to Extra        Not available in Power BI. The
+                                       Black)                                closest available is Segoe UI
+                                                                             Semibold for titles. Text boxes
+                                                                             can use "DIN" only if it renders,
+                                                                             which it didn't here
+
+  Secondary font                       Open Sans (Light to ExtraBold)        Not in the Power BI font list;
+                                                                             Segoe UI used instead
+
+  Office font                          Calibri, for office-made items        Exports to PowerPoint may pick it
+                                       such as PowerPoint and                up
+                                       letterheads
+
+  Colour: cyan                         Pantone 311C, RGB 0 193 222           Primary series, title accent, "Paid"
+                                       (#00C1DE)
+
+  Colour: green                        Pantone 3395C, RGB 0 193 139          Secondary series, "good"
+                                       (#00C18B)
+
+  Colour: grey                         Pantone Cool Grey 11, RGB 85 86       Text, axes, second series
+                                       90 (#55565A)
+
+  Colour: black and                    Black, white                          Body text, backgrounds
+  white
+
+  Gradient                             Cyan to green                         Optional header or accent band;
+                                                                             avoid in charts
+
+  Grid pattern                         Rounded-square tiles in cyan as       Optional faint decoration in the
+                                       "a subtle point of interest"          header; never behind data
+
+  Iconography                          Line icons in grey with cyan detail   Optional icons on KPI cards in the
+                                       (monitor, clock, server, gears,       same style
+                                       chip, drive, search, map pin)
+
+  Look and feel                        Lowercase bold headlines, plenty      Short headings, generous
+                                       of white space, lifestyle photos      padding; no photos in the report
+
+
+The palette has no amber or red, so the theme adds #F2A900 and #E5484D only for
+unpaid and cancelled status.
+
+
+
+
+                                                                                                              Page 12 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+Design system for the pages
+Every page should read top-left to bottom-right: filters, then KPIs, then trends, then
+breakdowns. Every visual answers one stated question. The rules below combine the
+design instructions, the brand booklet and the two inspiration articles. The articles stress
+single-screen executive views, KPI cards with comparisons, tidy filter placement, and
+hover detail instead of extra visuals.
+
+Principles applied, or to apply:
+
+ 1. One question per page and per visual. Titles are written as questions ("Is paid revenue
+    growing?") so they stay true when filters change.
+ 2. High signal-to-noise:
+           no axis titles where the legend or title says it;
+           dotted light gridlines;
+           data labels instead of a value axis on bar charts;
+           no shadows or 3-D;
+           no legend title;
+           at most 6–8 visuals per page.
+ 3. Colour carries meaning:
+           cyan for the main series;
+           greys for context;
+           green, amber and red only for paid, pending and cancelled.
+ 4. Consistent grid:
+           8 px spacing steps;
+           same card radius (8) and border (#E3E5E8);
+           KPI row in the same place on every page.
+ 5. Filters out of the way: a left rail holding all 17 fields, so the content area keeps the full
+     width.
+ 6. Detail on demand: tooltip pages instead of extra charts.
+ 7. Correct numbers first:
+           one measure family per page (revenue_orders_tbl);
+           "incl. VAT" in the titles;
+           never stack order counts by product.
+
+KPI card spec (new card visual, one card per measure group):
+
+
+
+
+                                                                                           Page 13 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Property                                   Value
+
+  Size                                       100 px tall; Paid and Unpaid 300 px wide, Customer
+                                             Type 632 px
+
+  Background                                 White, 8 px radius, 1 px #E3E5E8 border, no shadow
+
+  Accent bar                                 Left side, 4 px: cyan (Paid), amber (Unpaid &
+                                             Cancelled), green (Customer Type)
+
+  Title / category label                     Segoe UI Semibold 10 pt, #55565A
+
+  Value                                      Segoe UI Bold 22–24 pt, #231F20; display units:
+                                             thousands, 1 decimal (R518.6K)
+
+  Secondary label                            Segoe UI 9 pt, #55565A ("Total revenue", "Total
+                                             orders")
+
+  Optional                                   Reference label: change vs prior period (needs the
+                                             new measures), or a small sparkline of weekly
+                                             revenue
+
+
+Chart spec (set in the theme unless noted):
+
+
+  Element                            Setting
+
+  Card                               White, 8 px radius, #E3E5E8 border, padding 8 / 12
+
+  Title                              Segoe UI Semibold 12 pt, #55565A, one line
+
+  Axes                               Titles off; labels 8 pt grey; value axis hidden when
+                                     data labels are on (set per visual)
+
+  Gridlines                          Dotted #EDEEF0
+
+  Legend                             Top, 8 pt, no title
+
+  Series colours                     Category charts: cyan, grey, green, then light tints.
+                                     Status charts: Paid cyan, Unpaid amber, Cancelled
+                                     red, Refunded light grey (set per visual)
+
+  Page background                    #F4F6F8 (set per page)
+
+
+Tooltip page spec (to build):
+
+
+
+
+                                                                                                  Page 14 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Tooltip                  Canvas                 Content                   Use on
+  page
+
+  TT –                     Tooltip size (320 ×    Category name; cards      Category bar, treemap,
+  Category                 240), hidden, "Allow   for Paid Revenue          category mix, add-on
+                           use as tooltip" on     (Products), Paid Orders   and billing-cycle charts
+                                                  (Products), Unpaid
+                                                  Revenue (Products); top
+                                                  5 products bar
+
+  TT – Week                Same                   WeekDate; paid revenue    Weekly revenue combo,
+                                                  and orders cards; top 3   invoice-status chart,
+                                                  categories that week      new-customer share
+                                                                            chart
+
+  TT –                     Same                   Segment name; revenue,    Tenure, province,
+  Customer                                        orders, share of total    marketing source, sign-
+                                                                            up channel bars
+
+
+Set each target visual to Format › General › Tooltips › Type: Report page, then pick the
+page. Leave the tooltip page's filters on Auto so it inherits the hovered point.
+
+
+Filter functionality
+All 17 template slicers should now filter every chart and KPI on the new pages, because
+every visual uses revenue_orders_tbl measures. This hasn't been tested by clicking
+through each slicer yet. In the model, filters flow from orders_invoices_tbl to
+ revenue_orders_tbl , not the other way. So a product or customer slicer cannot change
+an orders_invoices_tbl measure.
+
+Fix made: the SALES TRENDS combo chart originally used Paid Invoice Revenue and
+ Paid Orders from orders_invoices_tbl . It was switched to Paid Revenue
+(Products) and Paid Orders (Products) , so product, category, customer and location
+slicers now reach it. Per the design instructions, these reconcile to the same total.
+
+Cleanup: a hidden duplicate combo chart sat inside the first Filters group on SALES
+TRENDS, left over from an earlier step. It was deleted.
+
+Slicer audit (the field each slicer uses; the table is inferred where the Data pane didn't
+show it):
+
+
+
+
+                                                                                              Page 15 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Slicer header                              Field                                 Table
+
+  Date range, relative                       Date (format)                         Calendar
+  date (Last N days)
+
+  Product Category /                         Category / Sub Category /             revenue_orders_tbl (likely)
+  Sub-category /                             Product Name
+  Product
+
+  Invoice ID / Order ID                      invoice_id and an order or ID field   revenue_orders_tbl or
+                                             (the audit read was ambiguous)        orders_invoices_tbl
+
+  Client ID                                  client_id                             Clients
+
+  Company / IP                               companyname / ip                      Clients
+  Address
+
+  Payment Method                             invoice_paymethod                     revenue_orders_tbl or
+                                                                                   orders_invoices_tbl
+
+  Billing Cycle                              billing_cycle                         revenue_orders_tbl (likely;
+                                                                                   also exists in Combined
+                                                                                   Revenue)
+
+  Country / Province                         client_country / client_state         revenue_orders_tbl
+
+  Domain / Service                           domain / service_status               revenue_orders_tbl (likely)
+  Status
+
+  Discovery Method                           heard_about_us                        revenue_orders_tbl
+
+  Customer Age                               customer_tenure_group (account        revenue_orders_tbl
+                                             age, not the person's age)
+
+
+Still to verify:
+
+     Click each slicer on each new page and confirm every chart and card responds.
+     Confirm Billing Cycle and Domain use revenue_orders_tbl , not Combined Revenue.
+     Filters don't flow from Combined Revenue into revenue_orders_tbl .
+     Check Format › Edit interactions on the copied slicers; none should be set to None.
+
+
+Redesign in progress (SALES TRENDS)
+The new layout moves all 17 slicers out of the two rows across the top and into a left filter
+rail. That frees the full width for KPI cards and charts. The canvas stays 1500 × 900 px.
+Positions below are in px as height · width · x · y, the order the Format › General › Properties
+
+
+
+
+                                                                                                            Page 16 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+boxes use.
+
+
+
+
+target layout · 1500 × 900 canvas, to scale
+
+Current state (interrupted): eight slicers were resized but not yet moved: relative date,
+date range, Product Category, Sub-category, Product, Billing Cycle, Payment Method and
+Service Status. Payment Method's width stopped at 155, because Power BI caps width at
+1500 − x until the slicer is moved left. Nothing else on the page has moved.
+
+
+  Element                                              Target h · w · x · y
+
+  Header shape                                         68 · 1500 · 0 · 0
+
+  Title text box                                       54 · 900 · 16 · 7
+
+  Logo                                                 48 · 110 · 1376 · 10
+
+  Filter rail panel (the "Filter" shape in the first   816 · 224 · 8 · 76
+  Filters group)
+
+  Relative date slicer                                 60 · 208 · 16 · 84
+
+  Date range slicer                                    62 · 208 · 16 · 146
+
+
+
+
+                                                                                    Page 17 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Element                                            Target h · w · x · y
+
+  16 dropdown slicers, top to bottom: Product        40 · 208 · 16 · 214, then +42 each (last at y
+  Category, Sub-category, Product, Billing Cycle,    844)
+  Payment Method, Service Status, Domain,
+  Customer Age, Discovery Method, Country,
+  Province, Company, Client ID, Order ID, Invoice
+  ID, IP Address
+
+  KPI card: Paid                                     100 · 300 · 244 · 78
+
+  KPI card: Unpaid & Cancelled                       100 · 300 · 552 · 78
+
+  KPI card: Customer Type (Existing / New)           100 · 632 · 860 · 78
+
+  Chart: top-left (revenue vs orders)                350 · 620 · 244 · 186
+
+  Chart: top-right (categories)                      350 · 620 · 872 · 186
+
+  Chart: bottom-left (category mix)                  348 · 620 · 244 · 544
+
+  Chart: bottom-right (invoice status)               348 · 620 · 872 · 544
+
+
+To delete once the new layout is in place: Grid 1–4 shapes, the "KPI" shape in the second
+Filters group, and the "KPI" band shape in the KPIS group. Charts now draw their own
+white rounded card from the theme.
+
+To undo instead: set the eight resized slicers back to height 90 and widths 260 / 180 / 150 /
+150 / 150 / 175 / 150 / 164. Or discard all unsaved changes.
+
+
+Remaining work
+In order. Steps 1–4 finish SALES TRENDS; step 5 copies the result to the other pages.
+
+     1. Finish the filter rail and content layout on SALES TRENDS using the positions above.
+     Set the page background to #F4F6F8 (Format page › Canvas background).
+     2. Restyle the KPI cards: separate white rounded cards, values 22–24 pt, grey labels.
+     Add an accent bar per card: cyan for Paid, amber for Unpaid & Cancelled, green for
+     Customer Type. Rename the "Unpaid & Cancelled" card's labels so unpaid and
+     cancelled aren't read as one figure, or split them per the design instructions.
+     3. Re-check series colours after the theme change. The invoice-status chart's
+     Cancelled series was set to the old theme colour 3, which is now green; set it to red
+     (#E5484D) and Unpaid to amber (#F2A900) using More colours › hex. Check the add-
+     on and billing-cycle charts the same way.
+     4. Add custom tooltip pages, both hidden with page size set to Tooltip:
+
+
+
+
+                                                                                            Page 18 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+           TT – Category: Paid revenue, paid orders and unpaid value cards, plus a top 5
+           products bar.
+           TT – Week: revenue and orders for the week, plus the top category that week.
+           Point the charts' tooltip setting to these pages (Format › General › Tooltips › Type:
+           Report page). The hidden "Revenue Tooltip" page may be reusable — check it first.
+     5. Copy the finished header, filter rail and KPI groups to CUSTOMER INSIGHTS,
+     PRODUCT MIX and the template page. On each page, delete the old groups first.
+     Choose "Don't sync" if Power BI asks to sync slicers. Then reposition each page's own
+     charts into the content area.
+     6. Cut visual noise on every chart:
+           Bar charts with data labels: hide the value axis.
+           Shorten titles to one line.
+           Remove repeated legend titles.
+           Sort the account-age bar by customer_tenure_sort instead of by revenue.
+     7. Optional: rename the 17 slicers in the Selection pane (they're all called "Date") so
+     they're easier to find.
+
+
+How-to (Power BI service, Edit mode)
+Panes used:
+
+     Visualizations: three tabs — Build, Format and Theme.
+     Selection: View › Selection pane.
+     Filters: the collapsible pane to the left of Visualizations.
+     Sync slicers: View › Sync slicers pane.
+
+Move or resize anything exactly
+
+ 1. Select it in the Selection pane. Groups expand with the arrow, and child items select
+     individually.
+ 2. Open Format, then General › Properties. Type Height and Width first and press Enter.
+ 3. Click empty canvas, reselect the item, then type Horizontal and Vertical. Power BI
+     checks position against the size the item had when selected.
+
+Restyle a slicer for the rail
+
+ 1. Format › Visual › Slicer settings › Style: Dropdown. The two date slicers keep their own
+     styles.
+ 2. Slicer header: Segoe UI 8 pt, #55565A.
+ 3. Values: 8 pt.
+
+
+
+
+                                                                                            Page 19 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+ 4. General › Effects: background off, visual border off. The rail panel supplies the white
+     card.
+
+Page background
+
+Click empty canvas › Format page › Canvas background › colour #F4F6F8, transparency
+0%.
+
+KPI card restyle (new card visual)
+
+ 1. Select the card. In Format › Visual › Cards, set background white, border #E3E5E8 at 1
+     px, rounded corners 8 and accent bar on (left, 4 px, brand colour).
+ 2. Callout values: Segoe UI Bold 22 pt. Labels: Segoe UI 9 pt grey.
+ 3. General › Effects › Shadow off.
+
+Series colour by hex
+
+Format › Visual › Columns (or Bars) › Apply settings to › Series › pick the series › Colour ›
+More colours › type the hex.
+
+Tooltip page
+
+ 1. Add a new page, then Format page › Page information › turn on "Allow use as tooltip".
+ 2. Canvas settings › Type: Tooltip. Hide the page (right-click the tab › Hide).
+ 3. Add cards and a small bar using revenue_orders_tbl measures.
+ 4. On each target chart: Format › General › Tooltips › Type: Report page › Page: pick it.
+
+Copy the redesigned frame to another page
+
+ 1. In the Selection pane, Ctrl-click the Header Bar, both Filters groups and KPIS, then
+     Ctrl+C.
+ 2. On the target page, delete its old versions of those groups and Ctrl+V. Pasted items
+     keep their positions.
+ 3. Answer "Don't sync" if asked about slicers. Re-set the relative date slicer to the page's
+     own default.
+
+Top N filter
+
+Select the chart › Filters pane › the field's card › Filter type: Top N › Top 10 › By value: drag
+the measure in › Apply filter.
+
+Theme
+
+     Re-import: Theme tab › Theme settings › … next to the theme name › Import › choose
+      1grid_brand_theme.json .
+     Export: the same menu › Export. Export the current theme before any re-import.
+
+Save or discard
+
+
+
+                                                                                            Page 20 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+     Save: File › Save.
+     Discard: close the report and choose not to save, or reload the page and leave without
+     saving.
+
+
+Verification checklist before saving
+Tick these off in the report before File › Save.
+
+Numbers
+
+     Set the date range to 1–29 Sep 2026 on SALES TRENDS (relative slicer cleared). Paid
+     card = R143,924.45 and 588 orders.
+     The category bars sum to the Paid card (currently about R532K vs R518.6K over 90
+     days; investigate the gap).
+     Unpaid & Cancelled card shows the intended measures. Check the field wells; the card
+     wasn't inspected.
+     Top 10 products filter still applies after any edit to that chart.
+
+Filters
+
+     On each new page, pick one value in every slicer in turn. Every chart and KPI card
+     changes, and nothing goes blank unexpectedly.
+     Clear all slicers afterwards. The page should open on Last 90 Days with everything else
+     at All.
+     Daily Overview still shows Last 1 Days.
+
+Design
+
+     No leftover Grid or KPI background shapes behind charts; nothing overlaps.
+     Every chart title fits on one line at Fit to page.
+     Status colours: Paid cyan, Unpaid amber, Cancelled red, Refunded grey.
+     Category colours match across SALES TRENDS, CUSTOMER INSIGHTS and PRODUCT
+     MIX.
+     Check text in the browser that report readers use. Fonts should be Segoe UI or the
+     fallback sans-serif, never serif.
+     Tooltip pages appear when hovering the target charts and show the hovered category
+     or week.
+
+Original pages
+
+     PRODUCT SALES | Overview, Daily Overview and Guide still look right after the theme
+     change, with no unreadable text colours.
+
+Housekeeping
+
+
+
+                                                                                      Page 21 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+     Pages 7–9 (Template, Duplicate of Template, Page 1): hide or delete.
+     The Filters pane is collapsed. Toggling it in Edit mode also changes what readers see.
+     Mobile layout: either lay out the new pages there or accept the default.
+
+
+Open issues and decisions
+One mismatch is unexplained; three items need a decision from you.
+
+     Mismatch to investigate: on SALES TRENDS (last 90 days), the category bars add up to
+     about R532K, but the Paid card shows R518.6K. That gap is too big to be rounding.
+     Possible causes: an order split across categories, or the "Unmapped" category
+     overlapping "Not in Combined Revenue".
+     Reconciliation not run: the instructions' check for 1–29 Sep 2026 (588 paid orders,
+     R143,924.45) hasn't been done on the new pages.
+     Decision — new measures: Average Order Value, Collection Rate, New Customer
+     Share and the prior-period comparisons need new measures in the shared semantic
+     model, which every report using it would see. Nothing was added.
+     Decision — canvas size: the pages keep the template's 1500 × 900, not the 1280 × 720
+     in the design instructions.
+     Decision — theme scope: the brand theme changes the original pages' colours too.
+     Keep it report-wide, or limit it to the new pages by setting their colours explicitly.
+     Data gaps (not fixable on the report): the old report's Actual v Budget view needs a
+     budget table this model doesn't have. Domain extension and register vs transfer fields
+     exist only in Combined Revenue.
+
+
+
+Design-instructions compliance
+The uploaded instructions (powerbi_report_design_instructions.md) define 7 pages, 10
+numeric rules and a design standard. Where the new pages stand against them:
+
+
+  Instruction                                Status             Note
+
+  Workflow 1 – inspect the model             Partly             Tables and fields were
+  (DAX query view, INFO.VIEW)                                   inventoried from the Data
+                                                                pane; DAX query view wasn't
+                                                                used, and relationships
+                                                                weren't opened
+
+  Workflow 2 – validate baselines            Not done           On the checklist
+  (588 / R143,924.45)
+
+
+
+
+                                                                                          Page 22 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Instruction                                Status                  Note
+
+  Workflow 3 – audit current                 Partly                  Template, PRODUCT SALES,
+  pages                                                              Daily Overview and Guide
+                                                                     reviewed; pages 4–9 not
+                                                                     opened
+
+  Workflow 5 – create measures               Not done                Needs your approval (shared
+  in a _Measures table                                               model)
+
+  Workflow 6 – apply a theme                 Done                    1-grid Brand theme
+  JSON first
+
+  Rule 1 – never SUM                         Followed
+  invoice_total on
+  revenue_orders_tbl
+
+  Rule 2 – headline and trends               Deliberately not        Switched to
+  from orders_invoices_tbl                   followed on the trend   revenue_orders_tbl so every
+                                             chart                   slicer works; per the
+                                                                     instructions both reconcile to
+                                                                     the same total
+
+  Rule 3 – paid orders exclude R0            Followed                Existing measures plus page
+                                                                     filter invoice_total > 0
+
+  Rule 4 – total_rev is not                  Followed                Not used
+  revenue
+
+  Rule 5 – state VAT basis                   Followed                "incl. VAT" in titles
+
+  Rule 6 – don't stack order                 Followed                Stacked charts use revenue
+  counts by product                                                  only
+
+  Rule 7 – dates start Jul 2025              Followed                90-day default; no year-on-
+                                                                     year
+
+  Rule 8 – blank invoice status              Not checked             Invoice-status chart shows
+  excluded from unpaid                                               statuses as they come
+
+  Rule 9 – Calendar for every                Followed                WeekDate from Calendar
+  date axis
+
+  Rule 10 – ID fields not as                 Not followed            Instruction to keep every filter
+  dropdowns on summary pages                                         field takes priority; IDs sit at
+                                                                     the bottom of the rail
+
+
+
+
+                                                                                               Page 23 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Instruction                                Status         Note
+
+  Pages: Overview, Product                   Mapped         Sales Trends ≈ Overview trend;
+  Performance, Customers                                    Product Mix ≈ Product
+                                                            Performance; Customer
+                                                            Insights ≈ Customers + part of
+                                                            Channels
+
+  Pages: Collections, Channels,              Not built      Not requested in this round
+  Order Detail, Data Quality
+
+  Canvas 1280 × 720                          Not followed   Kept the template's 1500 × 900
+
+  6–8 visuals per page                       Followed       4–6 charts plus KPI cards
+
+  KPI cards with delta and                   Not yet        Needs prior-period measures
+  sparkline
+
+  Split Unpaid (collectable) from            Not yet        Template card kept as is
+  Cancelled (lost)
+
+  Titles state the question or               Followed       Question form
+  insight
+
+  Colour: brand cyan primary,                Mostly         Status colours to re-check
+  semantic colours only for                                 after the theme change
+  meaning
+
+  Tooltip pages                              Not yet        Spec above
+
+  Collapsible filter panel                   Alternative    Left rail instead of a bookmark
+  (bookmarks)                                               toggle
+
+  Sync the Date slicer across                Not done       Each new page keeps its own
+  pages                                                     relative date slicer
+
+
+
+
+Old Daily sales (beta) report review
+The older report (Data analytics workspace, "Daily sales (beta)", data updated 02/10/26)
+has 8 pages. It was viewed only, not changed.
+
+
+
+
+                                                                                        Page 24 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  Page                            What it shows             Value for v2.0           Used?
+
+  Daily                           "New sales analysis":     % new-customer           New-customer share
+                                  MTD and yesterday %       revenue KPI;             became a CUSTOMER
+                                  new-customer              decomposition tree for   INSIGHTS chart.
+                                  revenue (25.1%,           exploration; day-on-     Decomposition tree
+                                  31.2%); month             day variance             and variance not yet
+                                  buttons Nov-25 to
+                                  Oct-26; links to Sales
+                                  snapshot, Daily sales,
+                                  Tabular analysis,
+                                  Actual v Budget, Site
+                                  traffic;
+                                  decomposition tree
+                                  (month › product
+                                  type); daily table with
+                                  variance %
+
+  Midday view                     Latest order time         Data-freshness stamp;    Not yet; no budget
+                                  stamp (02 Oct 2026        budget comparison        table in v2.0
+                                  15:24); today's % new-
+                                  customer revenue;
+                                  daily actual vs budget
+                                  with variance
+
+  Domains                         Yesterday's domains:      Domain detail by TLD     Not used: fields are
+                                  TLD mix (co.za 74%),      and register/transfer    only in Combined
+                                  register vs transfer by                            Revenue
+                                  status, payment
+                                  method mix
+
+  Web builder /                   Per-product daily and     Status-stacked           Became the "Is
+  Web design /                    monthly revenue by        revenue over time        invoiced value being
+  Email hosting                   invoice status (Paid,                              collected?" chart
+                                  Unpaid, Cancelled,
+                                  Refunded) with
+                                  order-count line
+
+  Daily by                        Yesterday's revenue       Product mix              Became the treemap
+  Product /                       split by product type                              and top 10 on
+  Midday Daily                    (donut) and                                        PRODUCT MIX
+  by Product                      decomposition tree
+
+
+Ideas still worth adding:
+
+     a "latest order" freshness card in the header;
+
+
+                                                                                                     Page 25 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+       a decomposition tree page for ad-hoc exploration;
+       a day-on-day variance table on a detail page;
+       an Actual v Budget page if the budget table moves into v2.0.
+
+
+Change log (this session, 2 Oct 2026)
+Every change made to the report, newest first. All are unsaved.
+
+
+  #           Change                                                   Where
+
+  18          Layout script stopped mid-run; 8 slicers resized         SALES TRENDS
+              (height 40/60/62, width 208, Payment Method 155),
+              not moved
+
+  17          Trend combo switched from Paid Invoice Revenue /         SALES TRENDS
+              Paid Orders (orders_invoices_tbl) to Paid Revenue
+              (Products) / Paid Orders (Products)
+
+  16          Hidden duplicate combo chart deleted from the            SALES TRENDS
+              first Filters group
+
+  15          Theme "1-grid Brand" imported (third version: full       Whole report
+              Segoe UI font stacks, reordered palette)
+
+  14          Series colours on add-on chart (add-on cyan, base        PRODUCT MIX
+              dark grey, blank light grey, Free orange) and billing-
+              cycle chart (blank light grey, Annually dark grey,
+              Monthly cyan)
+
+  13          Top N = 10 by Paid Revenue (Products) on the             PRODUCT MIX
+              products chart; title updated
+
+  12          Filters pane expanded and collapsed again (toggle        PRODUCT MIX
+              also affects readers)
+
+  11          Page 13 created from the template: header                PRODUCT MIX
+              "PRODUCT MIX", relative date 90 days, matrix
+              removed, grids 2×2, 4 charts
+
+  10          Page 12 created from the template: header                CUSTOMER INSIGHTS
+              "CUSTOMER INSIGHTS", relative date 90 days,
+              matrix removed, grids 2×2, 6 charts
+
+  9           A "Delete this page" prompt opened by accident           CUSTOMER INSIGHTS
+              (Delete key with tab focus) and was cancelled; no
+              page lost
+
+
+
+
+                                                                                           Page 26 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+  #           Change                                                    Where
+
+  8           One chart title briefly set to 60 pt by a script, reset   CUSTOMER INSIGHTS
+              to 14 pt
+
+  7           Invoice-status series colours set (Paid theme             SALES TRENDS
+              colour 1, Cancelled old theme colour 3)
+
+  6           Page renamed "SALES TRENDS | Overview";                   SALES TRENDS
+              header text changed
+
+  5           4 charts added; axis titles off; data labels on the       SALES TRENDS
+              category bar
+
+  4           Relative date slicer changed from Last 1 to Last 90       SALES TRENDS
+              Days
+
+  3           Grid 1–4 resized to 250 × 745 in a 2×2                    SALES TRENDS
+
+  2           Page 11 created from the template; matrix deleted         SALES TRENDS
+
+  1           A matrix row was clicked by mistake (cross-filter)        Template page
+              and cleared again
+
+
+The semantic model, other pages' visuals, relationships and measures were not changed.
+
+
+Automation notes
+All edits were made in the Power BI service editor in Chrome, using in-page JavaScript
+helpers. These notes are for whoever continues the build, by hand or with Claude.
+
+      Helpers are patched off right now: to stop the layout run, window.pbiPos and
+      window.selSpec in the open tab were replaced with no-ops. Restore them with
+      window.pbiPos = window.__pbiPosOrig; window.selSpec = window.selSpecOrig . A
+      page reload clears all helpers.
+      Adding fields: wells accept a simulated HTML5 drag ( DragEvent with a
+      DataTransfer ) from the Data pane tree item onto the well's "Add data fields here"
+      box. Clicking a well does not open a field picker.
+      Size and position: set the input values, then dispatch input, change and Enter events.
+      The x / y limits are checked against the size the visual had when it was selected. So
+      shrink first, deselect, reselect, then move. Width is capped at 1500 − x, so move a visual
+      left before widening it.
+      Title font-size trap: if the Title section is expanded above Properties, the first "size"
+      input is the title font size. One title was briefly set to 60 pt this way.
+
+
+
+
+                                                                                            Page 27 of 28
+Daily Sales v2.0 – Report Redesign Handoff
+
+
+
+
+     Theme import: Theme settings › … › Import opens a native file dialog. It was worked
+     around by intercepting HTMLInputElement.click so the file input stays in the page,
+     then uploading the JSON to it. Validation errors show in a dialog. One example: legend
+     position must be "Top", not "TopLeft".
+     Page delete trap: pressing Delete while the page tab has focus offers to delete the
+     whole page. Always click the item in the Selection pane first.
+     New visuals: clicking a visual type while another visual is selected converts that visual.
+     Deselect first.
+     Long scripts: the browser tool times out on long scripts. Run them in the background
+     and poll a log ( window.__log ).
+
+
+Files, links and sources
+
+  Item                                       Where
+
+  Daily Sales (v2.0) report                  Power BI, BigQuery Reports workspace
+
+  Daily sales (beta), old report             Power BI, Data analytics workspace
+
+  Semantic model                             Daily sales (Model) v2.0 (open from the report:
+                                             "Open semantic model")
+
+  Report design instructions                 powerbi_report_design_instructions.md (uploaded
+                                             to the chat)
+
+  Brand booklet                              1-grid brand booklet_v2-1GW-Madeleine.pdf, 16
+                                             pages (uploaded to the chat)
+
+  Theme file                                 1grid_brand_theme.json , generated this session;
+                                             ask to have it sent if you want a copy
+
+  Design inspiration                         Mokkup.ai: top Power BI dashboard templates ·
+                                             Coupler.io: Power BI dashboard examples
+
+
+A full field list of the semantic model is on the Reference tab.
+
+
+
+
+                                                                                                Page 28 of 28
+

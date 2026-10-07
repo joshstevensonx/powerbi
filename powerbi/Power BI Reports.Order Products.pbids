@@ -1,0 +1,15 @@
+{
+  "connections" : [ {
+    "options" : { },
+    "mode" : "DirectQuery",
+    "details" : {
+      "address" : {
+        "server" : "dl-coordinator01.1-grid.com:31010",
+        "schema" : "Power BI Reports",
+        "object" : "Order Products"
+      },
+      "protocol" : "dremio"
+    }
+  } ],
+  "version" : "0.1"
+}
