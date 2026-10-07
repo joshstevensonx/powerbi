@@ -10,7 +10,7 @@
     "tabOrder": 1020
   },
   "visual": {
-    "visualType": "lineClusteredColumnComboChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -48,11 +48,7 @@
               "queryRef": "revenue_orders_tbl.Paid Revenue (Products)",
               "nativeQueryRef": "Paid revenue",
               "displayName": "Paid revenue"
-            }
-          ]
-        },
-        "Y2": {
-          "projections": [
+            },
             {
               "field": {
                 "Measure": {
@@ -190,20 +186,6 @@
                 }
               }
             },
-            "secShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "secShowAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
             "labelDisplayUnits": {
               "expr": {
                 "Literal": {
@@ -259,6 +241,37 @@
           }
         }
       ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#55565A'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ],
       "dataPoint": [
         {
           "properties": {
@@ -285,7 +298,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F2A900'"
+                      "Value": "'#A7A8AB'"
                     }
                   }
                 }
@@ -294,33 +307,6 @@
           },
           "selector": {
             "metadata": "revenue_orders_tbl.Paid Revenue LY"
-          }
-        }
-      ],
-      "lineStyles": [
-        {
-          "properties": {
-            "strokeWidth": {
-              "expr": {
-                "Literal": {
-                  "Value": "2D"
-                }
-              }
-            },
-            "showMarker": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "markerSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "3D"
-                }
-              }
-            }
           }
         }
       ]
@@ -468,7 +454,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Are we ahead of last year? Monthly paid revenue, last 13 months'"
+                  "Value": "'Are we ahead of last year? Monthly paid revenue vs same month last year'"
                 }
               }
             },

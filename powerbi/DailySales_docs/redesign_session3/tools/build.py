@@ -22,7 +22,7 @@ FONT_B = "'Segoe UI Bold', wf_segoe-ui_bold, helvetica, arial, sans-serif"
 CATEGORY_COLOURS = {
     "Domains": CYAN, "Application Hosting": DCYAN, "Infrastructure Hosting": GREY,
     "Web Services": GREEN, "Security & Backup": LCYAN, "Business Services": DGREEN,
-    "Not in Combined Revenue": LGREY, "Other": "#C9CACC",
+    "Not in Combined Revenue": LGREY, "Unmapped": LGREY, "Other": "#C9CACC",
 }
 CUSTOMER_COLOURS = {"New Customer": GREEN, "Existing Customer": DCYAN, "Unknown Customer": LGREY}
 STATUS_COLOURS = {"Paid": CYAN, "Unpaid": AMBER, "Payment Pending": "#F7CB66", "Collections": "#B37D00",
@@ -319,7 +319,7 @@ VAR _last = MAX ( 'Calendar'[Date (format)] )
 RETURN FORMAT ( _first, "d mmm yyyy" ) & " – " & FORMAT ( _last, "d mmm yyyy" )""",
      "Text", None, "Labels", "Selected period."),
     ("Data As Of", """VAR _d = CALCULATE ( MAX ( orders_invoices_tbl[order_date] ), REMOVEFILTERS () )
-RETURN "Data to " & FORMAT ( _d, "d mmm yyyy" ) & " · excl. VAT · revenue on paid date\"""",
+RETURN "Data to " & FORMAT ( _d, "d mmm yyyy" )""",
      "Text", None, "Labels", "Latest order date in the model."),
     ("Overview Insight", f"""VAR _rev = {PR}
 VAR _ord = {PO}
@@ -340,11 +340,31 @@ RETURN
     )""", "Text", None, "Labels", "One-sentence summary for the Overview page."),
 ]
 
+MODEL_MEASURES = {"Paid Revenue (Products)", "Paid Orders (Products)", "Unpaid Revenue (Products)",
+                  "Unpaid Orders (Products)", "RO Invoice Total", "Paid Invoice Total", "Unpaid / Cancelled Invoice Total"}
+
+def measure_refs(expr):
+    """Measures a DAX expression references. Report measures that use other report measures must
+    declare them (schema 'extension'), or the service doesn't define them in the query."""
+    import re
+    own = {m_[0] for m_ in MEASURES}
+    refs, seen = [], set()
+    for name in re.findall(r"(?<![\w'\]])\[([^\]]+)\]", expr):
+        if name in seen: continue
+        seen.add(name)
+        if name in own:
+            refs.append({"schema": EXT, "entity": RO, "name": name})
+        elif name in MODEL_MEASURES:
+            refs.append({"entity": RO, "name": name})
+    return refs
+
 def report_extensions():
     out = []
     for name, expr, dt, fmt, folder, desc in MEASURES:
         mm = {"name": name, "dataType": dt, "expression": expr, "displayFolder": folder, "description": desc}
         if fmt: mm["formatString"] = fmt
+        refs = measure_refs(expr)
+        if refs: mm["references"] = {"measures": refs}
         out.append(mm)
     return {"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/reportExtension/1.0.0/schema.json",
             "name": "extension", "entities": [{"name": RO, "measures": out}]}
@@ -422,6 +442,7 @@ def textbox(runs_paragraphs, alt):
     return {"visualType": "textbox", "objects": {"general": [{"properties": {"paragraphs": paras}}]},
             "visualContainerObjects": {"title": [{"properties": {"show": B(False), "text": S(alt)}}],
                                        "background": [{"properties": {"show": B(False)}}],
+                                       "border": [{"properties": {"show": B(False)}}],
                                        "padding": [{"properties": {"top": D(0), "bottom": D(0), "left": D(0), "right": D(0)}}],
                                        "visualHeader": [{"properties": {"show": B(False)}}]},
             "drillFilterOtherVisuals": True}
@@ -495,10 +516,10 @@ def frame(page, title, subtitle, note_measure=None, note_text=None, with_kpis=Tr
     vs = []
     # header band
     vs.append(container(page, "hdr-bg", 0, 0, W, 64, shape(WHITE, BORDER), z=0))
-    vs.append(container(page, "hdr-title", 24, 8, 760, 28, textbox(
+    vs.append(container(page, "hdr-title", 24, 4, 760, 36, textbox(
         [[("Daily Sales  ", {"fontFamily": FONT_SB, "fontSize": "18pt", "color": CYAN}),
           ("· " + title, {"fontFamily": FONT_SB, "fontSize": "18pt", "color": BLACK})]], "Title"), z=100))
-    vs.append(container(page, "hdr-sub", 24, 38, 760, 20, textbox(
+    vs.append(container(page, "hdr-sub", 24, 40, 760, 20, textbox(
         [[(subtitle, {"fontFamily": FONT, "fontSize": "10pt", "color": GREY})]], "Subtitle"), z=110))
     vs.append(container(page, "hdr-dates", 800, 10, 540, 44, text_card(
         [(x("Period Label"), "Period"), (x("Data As Of"), "Data as of")], align="right", size=10, alt="Data updated"), z=120))
@@ -511,6 +532,8 @@ def frame(page, title, subtitle, note_measure=None, note_text=None, with_kpis=Tr
                                                        "ItemName": "1-grid_logo_resized4072192553301752.png"}}},
             "scaling": S("Fit")}}}}]},
         "visualContainerObjects": {"title": [{"properties": {"show": B(False), "text": S("1-grid logo")}}],
+                                   "border": [{"properties": {"show": B(False)}}],
+                                   "background": [{"properties": {"show": B(False)}}],
                                    "visualHeader": [{"properties": {"show": B(False)}}]},
         "drillFilterOtherVisuals": True}, z=130))
     # filter rail
@@ -523,13 +546,16 @@ def frame(page, title, subtitle, note_measure=None, note_text=None, with_kpis=Tr
             "icon": [{"properties": {"show": B(False)}, "selector": {"id": "default"}}],
             "text": [{"properties": {"show": B(True), "text": S("Clear all"), "fontColor": C(DCYAN), "fontSize": D(9),
                                      "fontFamily": S(FONT_SB)}, "selector": {"id": "default"}}],
-            "fill": [{"properties": {"show": B(True), "fillColor": C(WHITE)}, "selector": {"id": "default"}}],
+            "fill": [{"properties": {"show": B(True), "fillColor": C(WHITE), "transparency": D(100)}, "selector": {"id": "default"}}],
             "outline": [{"properties": {"show": B(True), "lineColor": C(BORDER), "weight": D(1), "roundEdge": D(6)},
                          "selector": {"id": "default"}}]},
         "visualContainerObjects": {"visualLink": [{"properties": {"show": B(True), "type": S("ClearAllSlicers")}}],
                                    "title": [{"properties": {"show": B(False), "text": S("Clear all slicers")}}],
                                    "visualHeader": [{"properties": {"show": B(False)}}]},
         "drillFilterOtherVisuals": True}, z=215))
+    vs.append(container(page, "rail-clear-label", RAIL_X + 120, KPI_Y + 13, 92, 18, textbox(
+        [[("Clear all", {"fontFamily": FONT_SB, "fontSize": "9pt", "color": DCYAN})]], "Clear all label"), z=212))
+    vs[-1]["visual"]["objects"]["general"][0]["properties"]["paragraphs"][0]["horizontalTextAlignment"] = "center"
     y = KPI_Y + 44
     for i, (key, header, field, kind) in enumerate(SLICERS):
         h = 58 if kind == "relative" else 52
@@ -695,9 +721,13 @@ v.append(container(pid, "daily", CX, R1, C1W, ROW_H, combo(DATE, (PRm, "Paid rev
     "How did paid revenue move day by day? Paid revenue (bars) and paid orders (line)"), z=1000))
 v.append(container(pid, "bycat", CX + C1W + GAP, R1, C2W, ROW_H, bar(col("Category"), [(PRm, "Paid revenue")],
     "Which categories earn the revenue?", colours=CATEGORY_COLOURS, label_units=1000), z=1010))
-monthly = combo(col("MonthYear", CAL), (PRm, "Paid revenue"), (x("Paid Revenue LY"), "Same month last year"),
-                "Are we ahead of last year? Monthly paid revenue, last 13 months", tooltip=None, line_colour=AMBER)
-monthly["query"]["sortDefinition"] = sort(col("MonthYear", CAL), False)
+monthly = bar(col("MonthYear", CAL), [(PRm, "Paid revenue"), (x("Paid Revenue LY"), "Same month last year")],
+              "Are we ahead of last year? Monthly paid revenue vs same month last year", kind="clusteredColumnChart",
+              sort_by=col("MonthYear", CAL), sort_desc=False, tooltip=None, legend=True, value_axis=True)
+monthly["objects"]["labels"][0]["properties"]["show"] = B(False)
+monthly["objects"]["valueAxis"][0]["properties"]["labelDisplayUnits"] = D(1000)
+monthly["objects"]["dataPoint"] = [{"properties": {"fill": C(CYAN)}, "selector": {"metadata": qref(PRm)}},
+                                   {"properties": {"fill": C(LGREY)}, "selector": {"metadata": qref(x("Paid Revenue LY"))}}]
 v.append(container(pid, "monthly", CX, R2, H1W, ROW_H, monthly,
                    filters=[f_relative("Date (format)", CAL, 13, 2, "overview-13m")], z=1020))
 top5 = bar(col("Product Name"), [(PRm, "Paid revenue")], "Which 5 products earn the most?", label_units=1000)
@@ -818,7 +848,7 @@ def tt_cards(pid, w, measures):
             "divider": [{"properties": {"show": B(False)}, "selector": {"id": "default"}}],
             "outline": [{"properties": {"show": B(False)}, "selector": {"id": "default"}}],
             "accentBar": [{"properties": {"show": B(False)}, "selector": {"id": "default"}}],
-            "value": [{"properties": {"fontSize": D(16), "fontFamily": S(FONT_SB), "fontColor": C(BLACK), "showBlankAs": S("0")},
+            "value": [{"properties": {"fontSize": D(13), "fontFamily": S(FONT_SB), "fontColor": C(BLACK), "showBlankAs": S("0")},
                        "selector": {"id": "default"}},
                       {"properties": {"labelDisplayUnits": D(1000), "labelPrecision": I(1)}, "selector": {"metadata": qref(PRm)}},
                       {"properties": {"fontColor": C(AMBER), "labelDisplayUnits": D(1000), "labelPrecision": I(1)},

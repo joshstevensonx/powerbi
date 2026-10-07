@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
-  "name": "86217fed5597345c9617",
+  "name": "629334124ffe0b542ebb",
   "position": {
-    "x": 28,
-    "y": 826,
-    "z": 290,
-    "height": 48,
-    "width": 200,
-    "tabOrder": 290
+    "x": 136,
+    "y": 93,
+    "z": 212,
+    "height": 18,
+    "width": 92,
+    "tabOrder": 212
   },
   "visual": {
     "visualType": "textbox",
@@ -19,14 +19,15 @@
               {
                 "textRuns": [
                   {
-                    "value": "Values excl. VAT. Paid revenue lands on the payment date; unpaid and cancelled on the order date.",
+                    "value": "Clear all",
                     "textStyle": {
-                      "fontFamily": "'Segoe UI', wf_segoe-ui_normal, helvetica, arial, sans-serif",
-                      "fontSize": "8pt",
-                      "color": "#55565A"
+                      "fontFamily": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
+                      "fontSize": "9pt",
+                      "color": "#007E91"
                     }
                   }
-                ]
+                ],
+                "horizontalTextAlignment": "center"
               }
             ]
           }
@@ -47,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Footnote'"
+                  "Value": "'Clear all label'"
                 }
               }
             }
