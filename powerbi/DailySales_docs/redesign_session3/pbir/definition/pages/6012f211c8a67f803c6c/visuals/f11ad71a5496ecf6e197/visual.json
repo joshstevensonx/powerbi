@@ -3,7 +3,7 @@
   "name": "f11ad71a5496ecf6e197",
   "position": {
     "x": 24,
-    "y": 38,
+    "y": 40,
     "z": 110,
     "height": 20,
     "width": 760,
@@ -55,6 +55,19 @@
         }
       ],
       "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
         {
           "properties": {
             "show": {

@@ -236,7 +236,7 @@ Tables generated from the built report. Titles are exactly as set.
 | Insight | cardVisual | 256 | 188 | 1228 | 30 | Data: [Overview Insight] (report measure) as "Insight" | — | — |
 | How did paid revenue move day by day? Paid revenue (bars) and paid orders (line) | lineClusteredColumnComboChart | 256 | 226 | 808 | 323 | Category: Calendar[Date (format)]<br>Y: [Paid Revenue (Products)] as "Paid revenue"<br>Y2: [Paid Orders (Products)] as "Paid orders" | — | TT - Period |
 | Which categories earn the revenue? | clusteredBarChart | 1076 | 226 | 408 | 323 | Category: revenue_orders_tbl[Category]<br>Y: [Paid Revenue (Products)] as "Paid revenue" | — | TT - Category |
-| Are we ahead of last year? Monthly paid revenue, last 13 months | lineClusteredColumnComboChart | 256 | 561 | 604 | 323 | Category: Calendar[MonthYear]<br>Y: [Paid Revenue (Products)] as "Paid revenue"<br>Y2: [Paid Revenue LY] (report measure) as "Same month last year" | Date (format): relative (see notes) | — |
+| Are we ahead of last year? Monthly paid revenue vs same month last year | clusteredColumnChart | 256 | 561 | 604 | 323 | Category: Calendar[MonthYear]<br>Y: [Paid Revenue (Products)] as "Paid revenue", [Paid Revenue LY] (report measure) as "Same month last year" | Date (format): relative, last 13 months | — |
 | Which 5 products earn the most? | clusteredBarChart | 872 | 561 | 300 | 323 | Category: revenue_orders_tbl[Product Name]<br>Y: [Paid Revenue (Products)] as "Paid revenue" | Top 5 Product Name | TT - Category |
 | How much comes from new customers? | donutChart | 1184 | 561 | 300 | 323 | Category: revenue_orders_tbl[type_of_customer]<br>Y: [Paid Revenue (Products)] as "Paid revenue" | — | TT - Category |
 
@@ -306,7 +306,7 @@ Tables generated from the built report. Titles are exactly as set.
 - Insight line: new card, `[Overview Insight]`, 11 pt black, left-aligned, no frame. It follows the pattern *"Paid revenue R ‹x› from ‹n› orders (▲/▼ ‹y›% vs prior period). ‹Top category› brought ‹z›% of it; new customers ‹w›%; app sales ‹v›%."*
 - Daily combo: columns cyan (paid revenue), line grey with small markers (paid orders), secondary axis on, value axis on with dotted gridlines, display units K, legend top.
 - Category bar: sorted by revenue desc, category colours, data labels in K, value axis off.
-- Monthly combo: x = `Calendar[MonthYear]` (sorts chronologically by CurMonthOffset). Columns = paid revenue (cyan), line = `[Paid Revenue LY]` (amber). Visual filter `Calendar[Date (format)]` *is in the last 13 months* (relative, incl. today). **Edit interactions: Period slicer → this visual = None**, so the trend always shows 13 months. Category and the other slicers still apply.
+- Monthly clustered columns: x = `Calendar[MonthYear]` (sorts chronologically by CurMonthOffset). Paid revenue (cyan) and `[Paid Revenue LY]` (grey `#A7A8AB`) side by side on **one shared value axis** (K). A combo chart would put last year on a second axis with its own scale, which misleads. Visual filter `Calendar[Date (format)]` *is in the last 13 months* (relative, incl. today). **Edit interactions: Period slicer → this visual = None**, so the trend always shows 13 months. Category and the other slicers still apply.
 - Top 5 products: Top N 5 by `[Paid Revenue (Products)]`, cyan, labels.
 - New vs existing donut: inner radius 62 %, labels = % of total, customer colours.
 
@@ -342,7 +342,7 @@ Tables generated from the built report. Titles are exactly as set.
 | Category, product, TLD, customer, channel, source, status-by-category, payment-method charts | **TT - Category** (480 × 300): new card with Paid revenue (K), Paid orders, AOV, Unpaid (amber, K) + Top 5 products bar |
 | Time-axis charts (daily combo, weekday, weekly share, weekly status) and the Daily Sales matrix | **TT - Period** (renamed from TT - Week, 480 × 330): the same 4 KPIs + paid revenue by category (category colours) |
 | Products matrix | **Revenue Tooltip** (480 × 320): matrix Sub Category › Product with `[Paid Revenue (Products)]`, `[Paid Orders (Products)]`, `[Revenue % of Total]`. **Fixed:** it used `Sum(invoice_total)` and `Count(order_id)` (implicit, incl. VAT, repeated per row) and pointed its own tooltip at Guide. |
-| Overview monthly trend, KPI cards, text lines, chase table | Default tooltip |
+| Overview monthly chart, KPI cards, text lines, chase table | Default tooltip |
 
 All tooltip pages: Page type Tooltip, white background, hidden in view mode. Visuals use "Report page" tooltip type with "Show tooltip fields only" off.
 
@@ -358,6 +358,7 @@ All tooltip pages: Page type Tooltip, white background, hidden in view mode. Vis
 Created as report measures on `revenue_orders_tbl` (PBIR: `Report/definition/reportExtensions.json`). They don't change the shared model. Display folders: Headline, Time, KPI text, Customers, Collections, Channels, Domains, Products, Labels.
 
 ### 5.1 Key definitions and choices
+- **Every report measure that uses another report measure must declare it** in its `references` (`{"schema":"extension","entity":"revenue_orders_tbl","name":"…"}`; model measures without `schema`). Without this the service doesn't define the inner measure in the query, and the visual shows *Error fetching data*. That was the cause of the KPI-card, Daily table, Products table, domain-block and insight errors in the first upload (fixed 7 Oct). Desktop and the service write these automatically when measures are created in the UI.
 - **Unpaid vs cancelled split** filters `Status_Filter`, not `invoice_status`. `[Unpaid Revenue (Products)]` already applies `invoice_status <> "Paid"` inside CALCULATE, which *overrides* any outer filter on `invoice_status`. A visual filter on invoice_status = Cancelled would be silently ignored. `Status_Filter` is a different column with the same values (blank → "Unpaid"), so KEEPFILTERS on it works.
 - **Prior period** = the same number of days immediately before the selected range: Last 30 days → the 30 days before.
 - **Paid share of invoiced** is cohort-based: of the value invoiced for orders placed in the period, how much is paid now. This matches the Excel *Paid tracker*. Paid revenue (cards) is on paid date, so the two answer different questions; both are labelled.
@@ -366,7 +367,8 @@ Created as report measures on `revenue_orders_tbl` (PBIR: `Report/definition/rep
 ### 5.2 DAX
 
 **Average Order Value** · folder *Headline* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Paid revenue excl. VAT ÷ paid orders (paid date).
+Paid revenue excl. VAT ÷ paid orders (paid date).  
+References: [Paid Revenue (Products)] (model), [Paid Orders (Products)] (model)
 
 ```dax
 Average Order Value =
@@ -374,7 +376,8 @@ DIVIDE ( [Paid Revenue (Products)], [Paid Orders (Products)] )
 ```
 
 **Paid Revenue PP** · folder *Time* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Paid revenue for the prior period of equal length immediately before the selected dates.
+Paid revenue for the prior period of equal length immediately before the selected dates.  
+References: [Paid Revenue (Products)] (model)
 
 ```dax
 Paid Revenue PP =
@@ -394,7 +397,8 @@ RETURN
 ```
 
 **Paid Orders PP** · folder *Time* · Double · format `0`  
-Paid orders, prior period of equal length.
+Paid orders, prior period of equal length.  
+References: [Paid Orders (Products)] (model)
 
 ```dax
 Paid Orders PP =
@@ -414,7 +418,8 @@ RETURN
 ```
 
 **Average Order Value PP** · folder *Time* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-AOV for the prior period of equal length.
+AOV for the prior period of equal length.  
+References: [Paid Revenue PP] (report), [Paid Orders PP] (report)
 
 ```dax
 Average Order Value PP =
@@ -422,7 +427,8 @@ DIVIDE ( [Paid Revenue PP], [Paid Orders PP] )
 ```
 
 **Paid Revenue Δ%** · folder *Time* · Double · format `0.0%;-0.0%;0.0%`  
-Change in paid revenue vs the prior period of equal length.
+Change in paid revenue vs the prior period of equal length.  
+References: [Paid Revenue PP] (report), [Paid Revenue (Products)] (model)
 
 ```dax
 Paid Revenue Δ% =
@@ -430,7 +436,8 @@ VAR _p = [Paid Revenue PP] RETURN IF ( NOT ISBLANK ( _p ), DIVIDE ( [Paid Revenu
 ```
 
 **Paid Revenue LY** · folder *Time* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Paid revenue for the same dates one year earlier. Blank before Jul 2026 (orders data starts Jul 2025).
+Paid revenue for the same dates one year earlier. Blank before Jul 2026 (orders data starts Jul 2025).  
+References: [Paid Revenue (Products)] (model)
 
 ```dax
 Paid Revenue LY =
@@ -450,7 +457,8 @@ RETURN
 ```
 
 **KPI Revenue Δ** · folder *KPI text* · Text  
-Card caption.
+Card caption.  
+References: [Paid Revenue (Products)] (model), [Paid Revenue PP] (report)
 
 ```dax
 KPI Revenue Δ =
@@ -469,7 +477,8 @@ RETURN
 ```
 
 **KPI Orders Δ** · folder *KPI text* · Text  
-Card caption.
+Card caption.  
+References: [Paid Orders (Products)] (model), [Paid Orders PP] (report)
 
 ```dax
 KPI Orders Δ =
@@ -488,7 +497,8 @@ RETURN
 ```
 
 **KPI AOV Δ** · folder *KPI text* · Text  
-Card caption.
+Card caption.  
+References: [Average Order Value] (report), [Average Order Value PP] (report)
 
 ```dax
 KPI AOV Δ =
@@ -507,7 +517,8 @@ RETURN
 ```
 
 **KPI Revenue Δ Colour** · folder *KPI text* · Text  
-Green up / red down.
+Green up / red down.  
+References: [Paid Revenue (Products)] (model), [Paid Revenue PP] (report)
 
 ```dax
 KPI Revenue Δ Colour =
@@ -517,7 +528,8 @@ RETURN IF ( ISBLANK ( _p ) || _c >= _p, "#00845F", "#E5484D" )
 ```
 
 **KPI Orders Δ Colour** · folder *KPI text* · Text  
-Green up / red down.
+Green up / red down.  
+References: [Paid Orders (Products)] (model), [Paid Orders PP] (report)
 
 ```dax
 KPI Orders Δ Colour =
@@ -527,7 +539,8 @@ RETURN IF ( ISBLANK ( _p ) || _c >= _p, "#00845F", "#E5484D" )
 ```
 
 **KPI AOV Δ Colour** · folder *KPI text* · Text  
-Green up / red down.
+Green up / red down.  
+References: [Average Order Value] (report), [Average Order Value PP] (report)
 
 ```dax
 KPI AOV Δ Colour =
@@ -537,7 +550,8 @@ RETURN IF ( ISBLANK ( _p ) || _c >= _p, "#00845F", "#E5484D" )
 ```
 
 **New Customer Revenue** · folder *Customers* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Paid revenue from clients who signed up on the order day.
+Paid revenue from clients who signed up on the order day.  
+References: [Paid Revenue (Products)] (model)
 
 ```dax
 New Customer Revenue =
@@ -545,7 +559,8 @@ CALCULATE ( [Paid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[type_of_
 ```
 
 **New Customer Share** · folder *Customers* · Double · format `0.0%;-0.0%;0.0%`  
-Share of paid revenue from new customers (Excel: New Revenue %).
+Share of paid revenue from new customers (Excel: New Revenue %).  
+References: [New Customer Revenue] (report), [Paid Revenue (Products)] (model)
 
 ```dax
 New Customer Share =
@@ -553,7 +568,8 @@ DIVIDE ( [New Customer Revenue], [Paid Revenue (Products)] )
 ```
 
 **New Customer Share PP** · folder *Customers* · Double · format `0.0%;-0.0%;0.0%`  
-New-customer share, prior period of equal length.
+New-customer share, prior period of equal length.  
+References: [New Customer Revenue] (report), [Paid Revenue (Products)] (model)
 
 ```dax
 New Customer Share PP =
@@ -573,7 +589,8 @@ RETURN
 ```
 
 **KPI New Share Δ** · folder *KPI text* · Text  
-Card caption.
+Card caption.  
+References: [New Customer Share] (report), [New Customer Share PP] (report)
 
 ```dax
 KPI New Share Δ =
@@ -592,7 +609,8 @@ RETURN
 ```
 
 **KPI New Share Δ Colour** · folder *KPI text* · Text  
-Green up / red down.
+Green up / red down.  
+References: [New Customer Share] (report), [New Customer Share PP] (report)
 
 ```dax
 KPI New Share Δ Colour =
@@ -602,7 +620,8 @@ RETURN IF ( ISBLANK ( _p ) || _c >= _p, "#00845F", "#E5484D" )
 ```
 
 **Open Unpaid Revenue** · folder *Collections* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Invoice value excl. VAT still collectable (Unpaid, Payment Pending, Collections, Draft), by order date. Filters Status_Filter because the base measure overrides invoice_status.
+Invoice value excl. VAT still collectable (Unpaid, Payment Pending, Collections, Draft), by order date. Filters Status_Filter because the base measure overrides invoice_status.  
+References: [Unpaid Revenue (Products)] (model)
 
 ```dax
 Open Unpaid Revenue =
@@ -610,7 +629,8 @@ CALCULATE ( [Unpaid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Status
 ```
 
 **Open Unpaid Orders** · folder *Collections* · Double · format `0`  
-Orders whose invoice is still collectable.
+Orders whose invoice is still collectable.  
+References: [Unpaid Orders (Products)] (model)
 
 ```dax
 Open Unpaid Orders =
@@ -618,7 +638,8 @@ CALCULATE ( [Unpaid Orders (Products)], KEEPFILTERS ( revenue_orders_tbl[Status_
 ```
 
 **Cancelled Revenue** · folder *Collections* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Invoice value excl. VAT on cancelled invoices (lost), by order date.
+Invoice value excl. VAT on cancelled invoices (lost), by order date.  
+References: [Unpaid Revenue (Products)] (model)
 
 ```dax
 Cancelled Revenue =
@@ -626,7 +647,8 @@ CALCULATE ( [Unpaid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Status
 ```
 
 **Cancelled Orders** · folder *Collections* · Double · format `0`  
-Orders whose invoice was cancelled.
+Orders whose invoice was cancelled.  
+References: [Unpaid Orders (Products)] (model)
 
 ```dax
 Cancelled Orders =
@@ -634,7 +656,8 @@ CALCULATE ( [Unpaid Orders (Products)], KEEPFILTERS ( revenue_orders_tbl[Status_
 ```
 
 **KPI Unpaid Caption** · folder *KPI text* · Text  
-Card caption.
+Card caption.  
+References: [Open Unpaid Orders] (report)
 
 ```dax
 KPI Unpaid Caption =
@@ -642,7 +665,8 @@ VAR _n = [Open Unpaid Orders] RETURN IF ( ISBLANK ( _n ), "No open invoices", FO
 ```
 
 **KPI Cancelled Caption** · folder *KPI text* · Text  
-Card caption.
+Card caption.  
+References: [Cancelled Orders] (report)
 
 ```dax
 KPI Cancelled Caption =
@@ -650,7 +674,8 @@ VAR _n = [Cancelled Orders] RETURN IF ( ISBLANK ( _n ), "No cancelled invoices",
 ```
 
 **Invoiced Value** · folder *Collections* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-All invoices excl. VAT, each once, by order date (Excel: 'Power BI new revenue').
+All invoices excl. VAT, each once, by order date (Excel: 'Power BI new revenue').  
+References: [RO Invoice Total] (model)
 
 ```dax
 Invoiced Value =
@@ -658,7 +683,8 @@ Invoiced Value =
 ```
 
 **Paid Share of Invoiced** · folder *Collections* · Double · format `0.0%;-0.0%;0.0%`  
-Share of invoiced value (orders placed in the period) that is paid. Excel: Paid tracker '% Paid'.
+Share of invoiced value (orders placed in the period) that is paid. Excel: Paid tracker '% Paid'.  
+References: [RO Invoice Total] (model)
 
 ```dax
 Paid Share of Invoiced =
@@ -666,7 +692,8 @@ DIVIDE ( CALCULATE ( [RO Invoice Total], revenue_orders_tbl[invoice_status] = "P
 ```
 
 **App Sales Revenue** · folder *Channels* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Paid revenue from app sales (signup_agent = App Sale).
+Paid revenue from app sales (signup_agent = App Sale).  
+References: [Paid Revenue (Products)] (model)
 
 ```dax
 App Sales Revenue =
@@ -674,7 +701,8 @@ CALCULATE ( [Paid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Sales Ch
 ```
 
 **App Sales Share** · folder *Channels* · Double · format `0.0%;-0.0%;0.0%`  
-Share of paid revenue from app sales.
+Share of paid revenue from app sales.  
+References: [App Sales Revenue] (report), [Paid Revenue (Products)] (model)
 
 ```dax
 App Sales Share =
@@ -682,7 +710,8 @@ DIVIDE ( [App Sales Revenue], [Paid Revenue (Products)] )
 ```
 
 **Local Domain Revenue** · folder *Domains* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Paid domain-registration revenue for local TLDs (.co.za, .africa …).
+Paid domain-registration revenue for local TLDs (.co.za, .africa …).  
+References: [Paid Revenue (Products)] (model)
 
 ```dax
 Local Domain Revenue =
@@ -690,7 +719,8 @@ CALCULATE ( [Paid Revenue (Products)], KEEPFILTERS ( revenue_orders_tbl[Sub Cate
 ```
 
 **International Domain Revenue** · folder *Domains* · Double · format `"R"\ #,0;"R"\ -#,0;"R"\ #,0`  
-Paid domain-registration revenue for international TLDs.
+Paid domain-registration revenue for international TLDs.  
+References: [Paid Revenue (Products)] (model)
 
 ```dax
 International Domain Revenue =
@@ -714,7 +744,8 @@ RETURN
 ```
 
 **Local Domains Added** · folder *Domains* · Double · format `#,0`  
-Excel: No. of Local Domains Added (paid orders only).
+Excel: No. of Local Domains Added (paid orders only).  
+References: [Domains Added] (report)
 
 ```dax
 Local Domains Added =
@@ -722,7 +753,8 @@ CALCULATE ( [Domains Added], KEEPFILTERS ( revenue_orders_tbl[Domain Region] = "
 ```
 
 **International Domains Added** · folder *Domains* · Double · format `#,0`  
-Excel: No. of Int. Domains Added (paid orders only).
+Excel: No. of Int. Domains Added (paid orders only).  
+References: [Domains Added] (report)
 
 ```dax
 International Domains Added =
@@ -745,7 +777,8 @@ RETURN
 ```
 
 **Revenue % of Total** · folder *Products* · Double · format `0.0%;-0.0%;0.0%`  
-Share of the selected total, for the product matrix.
+Share of the selected total, for the product matrix.  
+References: [Paid Revenue (Products)] (model)
 
 ```dax
 Revenue % of Total =
@@ -774,11 +807,12 @@ Latest order date in the model.
 ```dax
 Data As Of =
 VAR _d = CALCULATE ( MAX ( orders_invoices_tbl[order_date] ), REMOVEFILTERS () )
-RETURN "Data to " & FORMAT ( _d, "d mmm yyyy" ) & " · excl. VAT · revenue on paid date"
+RETURN "Data to " & FORMAT ( _d, "d mmm yyyy" )
 ```
 
 **Overview Insight** · folder *Labels* · Text  
-One-sentence summary for the Overview page.
+One-sentence summary for the Overview page.  
+References: [Paid Revenue (Products)] (model), [Paid Orders (Products)] (model), [Paid Revenue Δ%] (report), [New Customer Share] (report), [App Sales Share] (report)
 
 ```dax
 Overview Insight =
